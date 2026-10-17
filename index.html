@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nawiri Pamoja e.V.</title>
+<meta name="description" content="Nawiri Pamoja e.V. – Schulbildung für Kinder in Siaya County, Kenia, gemeinsam mit der Community-Organisation Dongruok Kanyakla.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF8F1;
+    --paper-dim:#F1ECDC;
+    --ink:#1C2B33;
+    --ink-soft:#57666B;
+    --clay:#F89C36;
+    --green:#2BB454;
+    --green-deep:#0E7A3E;
+    --gold:#F89C36;
+    --blue:#1C75B8;
+    --blue-deep:#134F7D;
+    --line:#E1D8C3;
+    --max:1060px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--ink);
+    margin:0;
+    line-height:1.12;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  section{padding:88px 0;}
+  section + section{border-top:1px solid var(--line);}
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,243,234,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;min-height:76px;max-width:var(--max);margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;text-decoration:none;}
+  .brand-logo{height:46px;width:auto;display:block;transition:opacity .35s ease;}
+  header.has-splash:not(.show-logo) .brand-logo{opacity:0;pointer-events:none;}
+  nav.links{display:flex;gap:30px;align-items:center;}
+  nav.links a{
+    text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-soft);
+    position:relative;padding:4px 0;
+  }
+  nav.links a:hover{color:var(--ink);}
+  .lang-toggle{
+    display:flex;border:1px solid var(--ink);border-radius:20px;overflow:hidden;
+    font-size:13px;font-weight:600;
+  }
+  .lang-toggle button{
+    background:none;border:none;padding:6px 14px;cursor:pointer;
+    font-family:inherit;color:var(--ink);
+  }
+  .lang-toggle button.active{background:var(--ink);color:var(--paper);}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .menu-btn svg{width:26px;height:26px;}
+
+  /* ---------- Splash ---------- */
+  html{scroll-padding-top:84px;}
+  .splash-bg{
+    position:fixed;inset:0;z-index:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.10),rgba(255,255,255,.04)),
+      url(assets/hero.jpg),
+      linear-gradient(180deg,#BFDDF2 0%,#DCEFD8 60%,#9FD3A8 100%);
+    background-repeat:no-repeat;
+    background-size:auto,cover,auto;
+    background-position:0 0,62% 0,0 0;
+  }
+  @media (min-aspect-ratio:4/3){
+    .splash-bg{
+      background-size:auto,100vw auto,auto;
+      background-position:0 0,50% calc(-1 * min(max(0px, 47.5vw - 580px), 75.28vw - 100vh)),0 0;
+    }
+  }
+  .splash{
+    position:relative;z-index:1;
+    height:clamp(560px,94vh,920px);
+    padding-top:112px;
+    display:flex;align-items:flex-start;justify-content:center;
+  }
+  .splash-card{
+    background:rgba(251, 248, 245, 0.8);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border-radius:26px;padding:clamp(22px,4vw,48px) clamp(24px,5vw,64px);
+    box-shadow:0 10px 40px rgba(20,40,30,.18);
+  }
+  .splash-logo{width:min(72vw,720px);height:auto;display:block;}
+  .page{position:relative;z-index:1;background:var(--paper);}
+  footer{position:relative;z-index:1;background:var(--paper-dim);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:96px 0 80px;}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
+  .kicker{
+    font-size:15px;color:var(--blue);font-weight:700;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .kicker .rule{width:34px;height:2px;background:var(--gold);display:inline-block;}
+  .hero h1{font-size:clamp(40px,5.4vw,64px);font-weight:600;max-width:11ch;}
+  .hero p.lead{margin-top:22px;font-size:19px;color:var(--ink-soft);max-width:46ch;}
+  .hero .cities{
+    margin-top:34px;display:flex;gap:26px;font-size:15px;color:var(--ink-soft);flex-wrap:wrap;
+  }
+  .hero .cities b{color:var(--ink);font-weight:600;}
+  .hero .city-arrow{color:var(--clay);}
+  .hero-photo{position:relative;justify-self:center;width:100%;max-width:460px;}
+  .hero-photo::before{
+    content:"";position:absolute;inset:18px -18px -18px 18px;border-radius:22px;
+    background:var(--gold);opacity:.22;z-index:0;
+  }
+  .hero-photo img{
+    position:relative;z-index:1;width:100%;aspect-ratio:1/1.05;object-fit:cover;object-position:32% 50%;
+    border-radius:22px;box-shadow:0 14px 40px rgba(28,43,51,.18);
+  }
+
+  /* ---------- Sections generic ---------- */
+  .section-head{max-width:60ch;margin-bottom:48px;}
+  .eyebrow{font-size:14px;color:var(--clay);font-weight:700;margin-bottom:10px;}
+  .section-head h2{font-size:clamp(28px,3.6vw,38px);font-weight:600;}
+  .section-head p{margin-top:14px;color:var(--ink-soft);font-size:17px;}
+
+  /* ---------- Name ---------- */
+  .name-box{max-width:68ch;}
+  .name-box p{color:var(--ink-soft);margin:0 0 16px;font-size:18px;}
+  .name-pair{
+    display:flex;gap:18px;flex-wrap:wrap;margin:6px 0 28px;
+  }
+  .name-pair div{
+    border:1px solid var(--line);border-radius:12px;padding:14px 20px;background:var(--paper-dim);
+  }
+  .name-pair b{font-family:'Baloo 2',sans-serif;font-size:22px;font-weight:600;display:block;color:var(--blue-deep);}
+  .name-pair span{font-size:13.5px;color:var(--ink-soft);}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .about-grid p{color:var(--ink-soft);margin:0 0 16px;}
+  .about-grid h3{font-size:20px;margin-bottom:14px;}
+  .plain-list{margin:6px 0 0;padding:0;list-style:none;}
+  .plain-list li{
+    padding:12px 0;border-top:1px solid var(--line);color:var(--ink-soft);font-size:16px;
+  }
+  .plain-list li b{color:var(--ink);font-weight:600;}
+
+  /* ---------- Work ---------- */
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .work-card{
+    border:1px solid var(--line);border-radius:14px;padding:26px;background:#fff;
+  }
+  .work-card .tag{
+    display:inline-block;font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;
+  }
+  .tag.now{background:#DDF1E3;color:var(--green-deep);}
+  .tag.next{background:#FDEBD3;color:#9A5A0B;}
+  .work-card h3{font-size:21px;margin-bottom:10px;}
+  .work-card p{margin:0;color:var(--ink-soft);font-size:16px;}
+
+  /* ---------- Partner CBO ---------- */
+  .cbo{background:var(--green-deep);color:var(--paper);}
+  .cbo-logo-card{background:var(--paper);border-radius:8px;padding:18px 26px;display:inline-flex;margin-bottom:28px;}
+  .cbo-logo-card img{height:80px;width:auto;display:block;}
+  .cbo .eyebrow{color:var(--gold);}
+  .cbo .section-head h2{color:var(--paper);}
+  .cbo .section-head p{color:#CFE0D5;}
+  .cbo-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:52px;align-items:start;}
+  .locator{border:1px solid rgba(247,243,234,0.25);border-radius:4px;padding:26px;}
+  .locator .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(247,243,234,0.15);font-size:14px;gap:12px;}
+  .locator .row:last-child{border-bottom:none;}
+  .locator .row span:first-child{color:#9DBBA9;}
+  .locator .row span:last-child{text-align:right;}
+  .cbo-body p{color:#DCE9DF;margin:0 0 16px;}
+  .cbo-body ul{margin:18px 0 0;padding:0;list-style:none;}
+  .cbo-body li{
+    padding:12px 0;border-top:1px solid rgba(247,243,234,0.15);
+    display:flex;gap:14px;font-size:15.5px;color:#E7EFE9;
+  }
+  .cbo-body li .mark{color:var(--gold);font-weight:700;}
+
+  /* ---------- Gallery ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;}
+  .gallery-grid figure{margin:0;position:relative;cursor:zoom-in;border-radius:10px;overflow:hidden;background:var(--paper-dim);}
+  .gallery-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .35s ease;}
+  .gallery-grid figure:hover img{transform:scale(1.03);}
+  .gallery-grid figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:26px 14px 11px;color:#fff;font-size:14px;
+    background:linear-gradient(transparent,rgba(15,25,30,.62));
+  }
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(12,20,24,.92);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:6px;}
+
+  /* ---------- Donate ---------- */
+  .donate-box{
+    border:1px solid var(--ink);border-radius:4px;
+    padding:40px;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;
+  }
+  .donate-box .left h3{font-size:24px;margin-bottom:10px;}
+  .donate-box .left p{color:var(--ink-soft);max-width:44ch;margin:0;}
+  .badge{
+    background:var(--gold);color:var(--ink);font-size:13px;font-weight:700;
+    padding:8px 16px;border-radius:20px;white-space:nowrap;
+  }
+
+  /* ---------- Contact / Impressum ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .contact-grid h3{font-size:20px;margin-bottom:16px;}
+  .impressum-list{font-size:15px;color:var(--ink-soft);}
+  .impressum-list div{padding:9px 0;border-top:1px solid var(--line);display:flex;gap:16px;}
+  .impressum-list div span.lbl{width:140px;flex-shrink:0;color:var(--ink);font-weight:600;}
+  .mail-link{
+    display:inline-block;margin-top:18px;color:var(--blue-deep);font-weight:700;
+    text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:2px;
+  }
+
+  footer{padding:34px 0;text-align:center;color:var(--ink-soft);font-size:13.5px;}
+
+  [data-lang="en"]{display:none !important;}
+  html[data-active="en"] [data-lang="de"]{display:none !important;}
+  html[data-active="en"] [data-lang="en"]{display:revert !important;}
+
+  @media (max-width: 860px){
+    nav.links{display:none;}
+    .menu-btn{display:block;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-photo{order:-1;max-width:360px;margin:0 auto 18px;}
+    .about-grid, .cbo-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
+    section{padding:60px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-row">
+    <a href="#top" class="brand"><img src="assets/nawiri-logo.svg" alt="Nawiri Pamoja e.V." class="brand-logo"></a>
+    <nav class="links">
+      <a href="#about" data-lang="de">Über uns</a><a href="#about" data-lang="en">About</a>
+      <a href="#cbo" data-lang="de">Partner vor Ort</a><a href="#cbo" data-lang="en">Partner on the ground</a>
+      <a href="#gallery" data-lang="de">Galerie</a><a href="#gallery" data-lang="en">Gallery</a>
+      <a href="#donate" data-lang="de">Spenden</a><a href="#donate" data-lang="en">Donate</a>
+      <a href="#contact" data-lang="de">Kontakt</a><a href="#contact" data-lang="en">Contact</a>
+      <div class="lang-toggle">
+        <button data-set-lang="de" class="active">DE</button>
+        <button data-set-lang="en">EN</button>
+      </div>
+    </nav>
+    <button class="menu-btn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  </div>
+</header>
+
+<div class="splash-bg" aria-hidden="true"></div>
+
+<main id="top">
+
+  <div class="splash">
+    <div class="splash-card"><img class="splash-logo" src="assets/nawiri-logo-splash.svg" alt="Nawiri Pamoja e.V. – Growing Together • Thriving Together"></div>
+  </div>
+
+  <div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="kicker"><span class="rule"></span>
+          <span data-lang="de">Nawiri Pamoja (Swahili) · Dongruok Kanyakla (Dholuo)</span>
+          <span data-lang="en">Nawiri Pamoja (Swahili) · Dongruok Kanyakla (Dholuo)</span>
+        </div>
+        <h1 data-lang="de">Gemeinsam aufblühen.</h1>
+        <h1 data-lang="en">Thriving together.</h1>
+        <p class="lead" data-lang="de">Wir ermöglichen Kindern in Siaya County in Kenia den Schulbesuch ohne Paywall und das Wachsen gemeinsam mit der Gemeinschaft, in der die Kinder leben, die sie trägt und selbst entscheidet, was gebraucht wird.</p>
+        <p class="lead" data-lang="en">We enable children in Siaya County, Kenya, to attend school without a paywall and to grow together with the community they live in — a community that carries them and decides for itself what is needed.</p>
+        <div class="cities">
+          <div><b>Berlin</b> — <span data-lang="de">gemeinnütziger Verein</span><span data-lang="en">registered non-profit</span></div>
+          <div class="city-arrow">→</div>
+          <div><b>Siaya, Kenya</b> — <span data-lang="de">Partner-CBO vor Ort</span><span data-lang="en">partner CBO on the ground</span></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="assets/hero-photo.jpg" alt="Philipp und Cathy mit Kindern bei einem Mal-Workshop in Siaya">
+      </div>
+    </div>
+  </section>
+
+  <!-- NAME -->
+  <section id="name">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Der Name</div>
+        <div class="eyebrow" data-lang="en">The name</div>
+        <h2 data-lang="de">Zwei Sprachen, ein Satz.</h2>
+        <h2 data-lang="en">Two languages, one phrase.</h2>
+      </div>
+      <div class="name-box">
+        <div class="name-pair">
+          <div><b>Nawiri Pamoja</b><span data-lang="de">Swahili – unser Verein in Berlin</span><span data-lang="en">Swahili – our association in Berlin</span></div>
+          <div><b>Dongruok Kanyakla</b><span data-lang="de">Dholuo – unser Partner in Siaya</span><span data-lang="en">Dholuo – our partner in Siaya</span></div>
+        </div>
+        <p data-lang="de">Beide Namen bedeuten dasselbe: <b>gemeinsam aufblühen</b>. Dholuo ist die Sprache der Luo, der Menschen in Siaya. Das ist für uns kein Slogan, sondern die Arbeitsweise: Ein Kind blüht nicht allein auf. Es braucht Schule, Familie und eine Gemeinschaft im Rücken.</p>
+        <p data-lang="en">Both names mean the same thing: <b>thriving together</b>. Dholuo is the language of the Luo, the people of Siaya. For us this is not a slogan but a way of working: a child doesn't thrive alone. They need school, family, and a community behind them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Warum es uns gibt</div>
+        <div class="eyebrow" data-lang="en">Why we exist</div>
+        <h2 data-lang="de">Teilen ist keine Nullsummenrechnung.</h2>
+        <h2 data-lang="en">Sharing is not a zero-sum game.</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p data-lang="de">Nawiri Pamoja wurde von Cathy und Philipp gemeinsam gegründet — aus zwei unterschiedlichen Leben, aber mit derselben Überzeugung: Teilen ist keine Nullsummenrechnung. Richtig gemacht wächst dabei etwas auf beiden Seiten, nicht nur auf einer.</p>
+          <p data-lang="de">Für uns heißt das konkret: Privilegien und Wissen zu teilen stärkt uns alle. Weisheit und Perspektiven kann man nicht kaufen. Beide Seiten bringen mit, was sie haben, und lernen voneinander.</p>
+          <p data-lang="de">Deshalb ist Nawiri Pamoja ein Projekt mit der Gemeinschaft. Es ist etwas, das aus zwei unterschiedlichen Ausgangspunkten zusammengefunden hat, ergänzend und im selben Ziel vereint: Nawiri Pamoja in Berlin, Dongruok Kanyakla in Siaya — und alle, die dazugehören.</p>
+
+          <p data-lang="en">Nawiri Pamoja was founded jointly by Cathy and Philipp — out of two different lives, but with the same conviction: sharing is not a zero-sum game. Done right, it grows something on both sides, not just one.</p>
+          <p data-lang="en">In concrete terms: sharing privileges and knowledge strengthens all of us. Wisdom and perspectives can't be bought. Both sides bring what they have and learn from each other.</p>
+          <p data-lang="en">That's why Nawiri Pamoja is a project with the community. It is something that came together from two different starting points, complementary and united in the same goal: Nawiri Pamoja in Berlin, Dongruok Kanyakla in Siaya — and everyone who belongs to it.</p>
+        </div>
+        <div>
+          <h3 data-lang="de">Warum ein Verein?</h3>
+          <h3 data-lang="en">Why an association?</h3>
+          <p data-lang="de">Nawiri Pamoja e.V. wurde 2026 in Berlin gegründet und ist als gemeinnützig anerkannt. Der Verein schafft sichere Strukturen für alle Beteiligten: Eigene Konten, transparente Vorgänge, klare Regeln und Sicherheit. Unser Zweck ist die Förderung von Bildung und Entwicklungszusammenarbeit.</p>
+          <p data-lang="en">Nawiri Pamoja e.V. was founded in Berlin in 2026 and is recognized as a non-profit. The association creates secure structures for everyone involved: its own accounts, transparent processes, clear rules, and security. Our purpose is promoting education and development cooperation.</p>
+
+          <h3 style="margin-top:28px;" data-lang="de">Wie wir arbeiten</h3>
+          <h3 style="margin-top:28px;" data-lang="en">How we work</h3>
+          <ul class="plain-list">
+            <li data-lang="de"><b>Die Entscheidungen trifft die Gemeinschaft.</b> Was ein Kind oder eine Familie braucht, wissen die Menschen vor Ort besser als wir.</li>
+            <li data-lang="de"><b>Saubere Strukturen auf beiden Seiten:</b> Satzungen und ein Memorandum of Understanding mit unserer Partnerorganisation.</li>
+            <li data-lang="de"><b>Fragen sind erwünscht,</b> auch unbequeme. Wir beantworten sie.</li>
+            <li data-lang="en"><b>The community makes the decisions.</b> The people on the ground know better than we do what a child or family needs.</li>
+            <li data-lang="en"><b>Clean structures on both sides:</b> statutes and a Memorandum of Understanding with our partner organization.</li>
+            <li data-lang="en"><b>Questions are welcome,</b> including uncomfortable ones. We answer them.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Was wir tun</div>
+        <div class="eyebrow" data-lang="en">What we do</div>
+        <h2 data-lang="de">Wo wir stehen – und wohin wir wollen.</h2>
+        <h2 data-lang="en">Where we are – and where we're headed.</h2>
+        <p data-lang="de">Wir sind erst vor wenigen Wochen gestartet. Deshalb sagen wir klar, was schon läuft und was noch Ziele sind.</p>
+        <p data-lang="en">We only started a few weeks ago. That's why we are clear about what is already happening and what is still a goal.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card">
+          <span class="tag now" data-lang="de">Läuft bereits</span><span class="tag now" data-lang="en">Already happening</span>
+          <h3 data-lang="de">Schule ohne Paywall</h3><h3 data-lang="en">School without a paywall</h3>
+          <p data-lang="de">Die ersten Kinder werden unterstützt, bei Schulgebühren, Uniform und Material. Unser Team in Siaya identifiziert gerade weitere Kinder, die Unterstützung brauchen.</p>
+          <p data-lang="en">The first children are being supported with school fees, uniforms, and materials. Our team in Siaya is currently identifying further children who need support.</p>
+        </div>
+        <div class="work-card">
+          <span class="tag now" data-lang="de">Gestartet</span><span class="tag now" data-lang="en">Started</span>
+          <h3 data-lang="de">Eine Gemeinschaft, mit der wir wachsen.</h3><h3 data-lang="en">A community we grow with.</h3>
+          <p data-lang="de">Die ersten Workshops haben stattgefunden. Menschen vor Ort geben ihr eigenes Wissen weiter, zum Beispiel Mama Maria, die viele Fähigkeiten zu teilen hat und die Community stützt. Einen Community-LifeStraw für sicheres Wasser haben wir schon installiert.</p>
+          <p data-lang="en">The first workshops have taken place. People on the ground pass on their own knowledge — for example Mama Mary, who has many skills to share and supports the community. We have already installed a community LifeStraw for safe water.</p>
+        </div>
+        <div class="work-card">
+          <span class="tag next" data-lang="de">Unsere Ziele</span><span class="tag next" data-lang="en">Our goals</span>
+          <h3 data-lang="de">Zugang zu Wissen und Infrastruktur</h3><h3 data-lang="en">Access to knowledge and infrastructure</h3>
+          <p data-lang="de">Ein Cyber-Raum, in dem Kinder selbst Skills lernen und Zugang zu Informationen haben, außerdem bessere Infrastruktur im Dorf. Was die Gemeinschaft stärkt, stärkt auch die Kinder.</p>
+          <p data-lang="en">A cyber room where children can learn skills themselves and access information, plus better infrastructure in the village. What strengthens the community strengthens the children.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER CBO -->
+  <section id="cbo" class="cbo">
+    <div class="wrap">
+      <div class="cbo-logo-card"><img src="assets/dongruok-logo.svg" alt="Dongruok Kanyakla"></div>
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Unser Partner vor Ort</div>
+        <div class="eyebrow" data-lang="en">Our partner on the ground</div>
+        <h2>Dongruok Kanyakla, Siaya County</h2>
+      </div>
+      <div class="cbo-grid">
+        <div class="locator">
+          <div class="row"><span data-lang="de">Organisation</span><span data-lang="en">Organization</span><span>Dongruok Kanyakla CBO</span></div>
+          <div class="row"><span data-lang="de">Region</span><span data-lang="en">Region</span><span>Alego Usonga, Siaya</span></div>
+          <div class="row"><span data-lang="de">Land</span><span data-lang="en">Country</span><span>Kenya</span></div>
+          <div class="row"><span>Status</span><span data-lang="de">In Kenia registrierte Community-Organisation</span><span data-lang="en">Registered community organization in Kenya</span></div>
+          <div class="row"><span data-lang="de">Name bedeutet</span><span data-lang="en">Name means</span><span data-lang="de">„Gemeinsam aufblühen" (Dholuo)</span><span data-lang="en">"Thriving together" (Dholuo)</span></div>
+        </div>
+        <div class="cbo-body">
+          <p data-lang="de">Dongruok Kanyakla ist eine eigenständige Community Based Organization in Alego Usonga, Siaya County — der Heimat von Cathys Familie. Cathy selbst lebt und arbeitet in Nairobi; zur Gemeinschaft in Siaya hat sie über ihre Familie eine enge, langjährige Verbindung.</p>
+          <p data-lang="en">Dongruok Kanyakla is an independent Community Based Organization in Alego Usonga, Siaya County — the home of Cathy's family. Cathy herself lives and works in Nairobi; her connection to the community in Siaya runs through her family, who have deep, long-standing roots there.</p>
+
+          <p data-lang="de">Geführt wird die CBO von einem gewählten Komitee: Cathy als Vorsitzende, ein Lehrer der Kinder, der Paralegal von Siaya und Maria, von allen in Siaya nur „Mama" genannt — als Kassenwartin. Die Familien in der Gemeinschaft leben selbsterhaltend von der Landwirtschaft.</p>
+          <p data-lang="en">The CBO is run by an elected committee: Cathy as Chairperson, a teacher of the children, the paralegal of Siaya, and Mary — known to everyone in Siaya simply as "Mama" — as Treasurer. The families in the community are self-sufficient, living from farming.</p>
+
+          <p data-lang="de">Cathy beschreibt sich selbst manchmal als „Farmer" — wörtlich, weil ihre Familie zur Landwirtschaft der Gemeinschaft gehört, und im übertragenen Sinn, weil sie Wissen weitergibt wie Saat, die erst mit der Zeit Früchte trägt.</p>
+          <p data-lang="en">Cathy sometimes describes herself as a "farmer" — literally, because her family is part of the community's farming life, and figuratively, because she passes on knowledge like seeds that only bear fruit over time.</p>
+          <ul>
+            <li><span class="mark">01</span><span data-lang="de">Identifiziert Kinder, die Unterstützung beim Schulbesuch brauchen</span><span data-lang="en">Identifies children who need support to attend school</span></li>
+            <li><span class="mark">02</span><span data-lang="de">Entscheidet vor Ort, was Kinder und Familien brauchen</span><span data-lang="en">Decides locally what children and families need</span></li>
+            <li><span class="mark">03</span><span data-lang="de">Hält mit uns Rücksprache über die Verwendung der Mittel</span><span data-lang="en">Consults with us on how funds are used</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Einblicke</div>
+        <div class="eyebrow" data-lang="en">Glimpses</div>
+        <h2 data-lang="de">Galerie</h2>
+        <h2 data-lang="en">Gallery</h2>
+        <p data-lang="de">Einblicke in unsere Arbeit vor Ort.</p>
+        <p data-lang="en">Glimpses of our work on the ground.</p>
+      </div>
+      <!--
+        NEUES FOTO HINZUFÜGEN:
+        1. Datei in den Ordner assets/gallery/ legen (ca. 2000 px breit, unter 600 KB)
+        2. Den folgenden Block kopieren, unten einfügen, Dateiname und Texte ändern:
+
+        <figure>
+          <img src="assets/gallery/DATEINAME.jpg" loading="lazy" alt="Beschreibung des Bildes">
+          <figcaption data-lang="de">Deutscher Text</figcaption>
+          <figcaption data-lang="en">English text</figcaption>
+        </figure>
+      -->
+      <div class="gallery-grid">
+        <figure>
+          <img src="assets/gallery/workshop.jpg" loading="lazy" alt="Kinder malen und basteln gemeinsam an einem Tisch unter freiem Himmel">
+          <figcaption data-lang="de">Mal-Workshop in Siaya</figcaption>
+          <figcaption data-lang="en">Drawing workshop in Siaya</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/gallery/wasserfilter.jpg" loading="lazy" alt="Ein Kind füllt Wasser aus einem Wasserfilter in eine Flasche">
+          <figcaption data-lang="de">Sauberes Wasser</figcaption>
+          <figcaption data-lang="en">Clean water</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/gallery/unterwegs.jpg" loading="lazy" alt="Kinder gehen zusammen mit Erwachsenen einen Pfad unter Mangobäumen entlang">
+          <figcaption data-lang="de">Unterwegs</figcaption>
+          <figcaption data-lang="en">On the way</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONATE -->
+  <section id="donate">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Mitmachen</div>
+        <div class="eyebrow" data-lang="en">Get involved</div>
+        <h2 data-lang="de">Spenden</h2>
+        <h2 data-lang="en">Donate</h2>
+      </div>
+      <div class="donate-box">
+        <div class="left">
+          <h3 data-lang="de">Unser Spendenkonto wird gerade eingerichtet.</h3>
+          <h3 data-lang="en">Our donation account is currently being set up.</h3>
+          <p data-lang="de">Sobald das Vereinskonto steht, findest du hier die Kontodaten und Informationen zur Zuwendungsbestätigung. Bis dahin kannst du uns gerne direkt kontaktieren.</p>
+          <p data-lang="en">Once the association's bank account is active, you'll find the account details and information on donation receipts here. Until then, feel free to reach out to us directly.</p>
+        </div>
+        <div class="badge" data-lang="de">Kommt bald</div>
+        <div class="badge" data-lang="en">Coming soon</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / IMPRESSUM -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-lang="de">Kontakt</div>
+        <div class="eyebrow" data-lang="en">Contact</div>
+        <h2 data-lang="de">Sag Hallo.</h2>
+        <h2 data-lang="en">Say hello.</h2>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <h3 data-lang="de">Kontakt</h3>
+          <h3 data-lang="en">Contact</h3>
+          <p data-lang="de" style="color:var(--ink-soft);max-width:40ch;">Fragen, Ideen oder einfach Hallo sagen – wir freuen uns.</p>
+          <p data-lang="en" style="color:var(--ink-soft);max-width:40ch;">Questions, ideas, or just want to say hello – we'd love to hear from you.</p>
+          <a class="mail-link" href="mailto:info@nawiri-pamoja.org">info@nawiri-pamoja.org</a>
+        </div>
+        <div>
+          <h3 data-lang="de">Impressum</h3>
+          <h3 data-lang="en">Legal notice (Impressum)</h3>
+          <div class="impressum-list">
+            <div><span class="lbl" data-lang="de">Verein</span><span class="lbl" data-lang="en">Association</span><span>Nawiri Pamoja e.V.</span></div>
+            <div><span class="lbl" data-lang="de">Sitz</span><span class="lbl" data-lang="en">Registered seat</span><span>Berlin, Deutschland</span></div>
+            <div><span class="lbl" data-lang="de">Anschrift</span><span class="lbl" data-lang="en">Address</span><span>Tino-Schwirzina-Str. 30 D<br>13089 Berlin</span></div>
+            <div><span class="lbl" data-lang="de">Register</span><span class="lbl" data-lang="en">Register</span><span>Amtsgericht Charlottenburg, VR 42720 B</span></div>
+            <div><span class="lbl" data-lang="de">Vertreten durch</span><span class="lbl" data-lang="en">Represented by</span><span data-lang="de">Philipp Alexander Bischoff (1. Vorsitzender)</span><span data-lang="en">Philipp Alexander Bischoff (1st Chairperson)</span></div>
+            <div><span class="lbl">E-Mail</span><span>info@nawiri-pamoja.org</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /page -->
+
+</main>
+
+<footer>
+  <span>© 2026 Nawiri Pamoja e.V. — Berlin</span>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
+
+<script>
+  const html = document.documentElement;
+  const buttons = document.querySelectorAll('[data-set-lang]');
+  function setLang(l){
+    html.setAttribute('data-active', l);
+    html.setAttribute('lang', l);
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.setLang === l));
+    try{ localStorage.setItem('npv_lang', l); }catch(e){}
+  }
+  buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.setLang)));
+  let saved = 'de';
+  try{ saved = localStorage.getItem('npv_lang') || 'de'; }catch(e){}
+  setLang(saved);
+</script>
+
+<script>
+  (function(){
+    var h=document.querySelector('header'), l=document.querySelector('.splash-logo');
+    if(!h||!l||!('IntersectionObserver' in window)) return;
+    h.classList.add('has-splash');
+    new IntersectionObserver(function(e){
+      h.classList.toggle('show-logo',!e[0].isIntersecting);
+    },{rootMargin:'-80px 0px 0px 0px'}).observe(l);
+  })();
+</script>
+<script>
+  (function(){
+    var lb=document.getElementById('lightbox'); if(!lb) return;
+    var big=lb.querySelector('img');
+    document.querySelectorAll('.gallery-grid figure').forEach(function(f){
+      f.addEventListener('click',function(){var i=f.querySelector('img');big.src=i.src;big.alt=i.alt;lb.classList.add('open');});
+    });
+    lb.addEventListener('click',function(){lb.classList.remove('open');});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});
+  })();
+</script>
+</body>
+</html>
