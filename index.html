@@ -242,8 +242,18 @@
   html[data-active="en"] [data-lang="en"]{display:revert !important;}
 
   @media (max-width: 860px){
-    nav.links{display:none;}
     .menu-btn{display:block;}
+    nav.links{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:rgba(251,248,241,.98);border-bottom:1px solid var(--line);
+      padding:6px 28px 20px;box-shadow:0 14px 28px rgba(20,40,30,.14);
+    }
+    header.menu-open nav.links{display:flex;}
+    nav.links a{font-size:17px;padding:14px 0;border-bottom:1px solid var(--line);}
+    nav.links .lang-toggle{align-self:flex-start;margin-top:18px;}
+    header.menu-open .menu-btn .ic-open{display:none;}
+    header.menu-open .menu-btn .ic-close{display:block !important;}
     .hero .wrap{grid-template-columns:1fr;}
     .hero-photo{order:-1;max-width:360px;margin:0 auto 18px;}
     .about-grid, .cbo-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
@@ -256,7 +266,7 @@
 <header>
   <div class="nav-row">
     <a href="#top" class="brand"><img src="assets/nawiri-logo.svg" alt="Nawiri Pamoja e.V." class="brand-logo"></a>
-    <nav class="links">
+    <nav class="links" id="site-nav">
       <a href="#about" data-lang="de">Über uns</a><a href="#about" data-lang="en">About</a>
       <a href="#cbo" data-lang="de">Partner vor Ort</a><a href="#cbo" data-lang="en">Partner on the ground</a>
       <a href="#gallery" data-lang="de">Galerie</a><a href="#gallery" data-lang="en">Gallery</a>
@@ -267,7 +277,7 @@
         <button data-set-lang="en">EN</button>
       </div>
     </nav>
-    <button class="menu-btn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Menu" aria-controls="site-nav" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="ic-open" d="M3 6h18M3 12h18M3 18h18"/><path class="ic-close" d="M5 5l14 14M19 5L5 19" style="display:none"/></svg></button>
   </div>
 </header>
 
@@ -576,6 +586,17 @@
     });
     lb.addEventListener('click',function(){lb.classList.remove('open');});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});
+  })();
+</script>
+<script>
+  (function(){
+    var h=document.querySelector('header'), b=document.getElementById('menu-btn'), n=document.getElementById('site-nav');
+    if(!h||!b||!n) return;
+    function set(open){h.classList.toggle('menu-open',open);b.setAttribute('aria-expanded',open?'true':'false');}
+    b.addEventListener('click',function(){set(!h.classList.contains('menu-open'));});
+    n.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
+    window.addEventListener('resize',function(){if(window.innerWidth>860)set(false);});
   })();
 </script>
 </body>
