@@ -170,13 +170,38 @@
   .work-card{
     border:1px solid var(--line);border-radius:14px;padding:26px;background:#fff;
   }
-  .work-card .tag{
+  .work-card .tag, .roadmap .tag, .school-block .tag{
     display:inline-block;font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;
   }
   .tag.now{background:#DDF1E3;color:var(--green-deep);}
   .tag.next{background:#FDEBD3;color:#9A5A0B;}
   .work-card h3{font-size:21px;margin-bottom:10px;}
   .work-card p{margin:0;color:var(--ink-soft);font-size:16px;}
+
+
+  /* ---------- School block ---------- */
+  .school-block{
+    display:grid;grid-template-columns:1.1fr 0.9fr;margin-top:48px;
+    border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;
+  }
+  .school-block figure{margin:0;}
+  .school-block img{width:100%;height:100%;min-height:240px;object-fit:cover;object-position:30% 50%;}
+  .school-text{padding:30px 32px;align-self:center;}
+  .school-text h3{font-size:24px;margin:10px 0 12px;}
+  .school-text p{margin:0 0 12px;color:var(--ink-soft);}
+  .school-text p:last-child{margin-bottom:0;}
+
+  /* ---------- Roadmap (Ziele) ---------- */
+  .roadmap{margin-top:56px;}
+  .roadmap h3{font-size:24px;margin:12px 0 10px;}
+  .roadmap > p{color:var(--ink-soft);max-width:62ch;margin:0 0 24px;}
+  .road-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch;}
+  .road-step{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--paper-dim);}
+  .road-step b{display:block;font-family:'Baloo 2',sans-serif;font-size:19px;font-weight:600;color:var(--blue-deep);margin-bottom:6px;}
+  .road-step span{color:var(--ink-soft);font-size:15.5px;}
+  .road-arrow{align-self:center;color:var(--clay);font-size:24px;}
+  .roadmap .road-also{max-width:none;margin:16px 0 0;color:var(--ink-soft);font-size:15.5px;}
+  .road-also b{color:var(--ink);font-weight:600;}
 
   /* ---------- Partner CBO ---------- */
   .cbo{background:var(--green-deep);color:var(--paper);}
@@ -240,6 +265,7 @@
   [data-lang="en"]{display:none !important;}
   html[data-active="en"] [data-lang="de"]{display:none !important;}
   html[data-active="en"] [data-lang="en"]{display:revert !important;}
+  html[data-active="en"] .tag[data-lang="en"]{display:inline-block !important;}
 
   @media (max-width: 860px){
     .menu-btn{display:block;}
@@ -257,6 +283,10 @@
     .hero .wrap{grid-template-columns:1fr;}
     .hero-photo{order:-1;max-width:360px;margin:0 auto 18px;}
     .about-grid, .cbo-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
+    .school-block{grid-template-columns:1fr;}
+    .school-text{padding:24px 22px;}
+    .road-row{grid-template-columns:1fr;}
+    .road-arrow{justify-self:start;transform:rotate(90deg);margin-left:10px;}
     .about-grid{gap:0;}
     .about-grid h3{margin-top:34px;}
     section{padding:60px 0;}
@@ -395,28 +425,58 @@
         <div class="eyebrow" data-lang="en">What we do</div>
         <h2 data-lang="de">Wo wir stehen – und wohin wir wollen.</h2>
         <h2 data-lang="en">Where we are – and where we're headed.</h2>
-        <p data-lang="de">Wir sind erst vor wenigen Monaten gestartet. Deshalb sagen wir klar, was schon läuft und was noch Ziele sind.</p>
-        <p data-lang="en">We only started a few months ago. That's why we are clear about what is already happening and what is still a goal.</p>
+        <p data-lang="de">Wir sind erst vor wenigen Monaten gestartet. Deshalb sagen wir klar, was schon läuft, was wir gerade aufbauen und was noch Ziele sind.</p>
+        <p data-lang="en">We only started a few months ago. That's why we are clear about what is already happening, what we are building right now, and what is still a goal.</p>
       </div>
       <div class="work-grid">
         <div class="work-card">
           <span class="tag now" data-lang="de">Läuft bereits</span><span class="tag now" data-lang="en">Already happening</span>
-          <h3 data-lang="de">Schule ohne Paywall</h3><h3 data-lang="en">School without a paywall</h3>
-          <p data-lang="de">Die ersten Kinder werden unterstützt, bei Schulgebühren, Uniform und Material. Unser Team in Siaya identifiziert gerade weitere Kinder, die Unterstützung brauchen.</p>
-          <p data-lang="en">The first children are being supported with school fees, uniforms, and materials. Our team in Siaya is currently identifying further children who need support.</p>
+          <h3 data-lang="de">Schule ohne Paywall.</h3><h3 data-lang="en">School without a paywall.</h3>
+          <p data-lang="de">Drei Kinder aus der Gemeinschaft sind schon voll in unserem Team, wir übernehmen ihre Schulkosten. Bei weiteren Kindern sind wir eingesprungen, wo es mit den Gebühren gehakt hat. Jetzt sehen Mama und unser Team genau hin, wer was braucht – Schuhe, eine heile Uniform, Material oder mehr – und nehmen nach und nach weitere Kinder ganz auf: „mpaka yote iwe sawa“, bis alles gut ist.</p>
+          <p data-lang="en">Three children from the community are already fully part of our team, and we cover their school costs. For other children we stepped in where the fees were stuck. Now Mama and our team look closely at who needs what – shoes, an intact uniform, materials or more – and take in more children fully, bit by bit: “mpaka yote iwe sawa”, until everything is right.</p>
+        </div>
+        <div class="work-card">
+          <span class="tag now" data-lang="de">Gestartet</span><span class="tag now" data-lang="en">Started</span>
+          <h3 data-lang="de">Kind sein und gewinnen.</h3><h3 data-lang="en">Being a kid, and winning.</h3>
+          <p data-lang="de">Sport und Spiel sind mehr als Zeitvertreib. Sie bringen Kinder und Jugendliche zusammen und zum Lachen. Die Fuß- und Netzbälle, die Cathy bereitgestellt hat, sind schon viel im Einsatz. Als Nächstes möchten wir Teams starten, mit Trikots ausstatten und kleine Turniere veranstalten. Ebenso regelmäßige kleine Marathon-Events. Etwas zu gewinnen bedeutet vielen ein Leben lang etwas.</p>
+          <p data-lang="en">Sport and play are more than a pastime. They bring children and young people together and make them laugh. The footballs and netballs Cathy provided are already getting a lot of use. Next, we want to start teams, equip them with jerseys and hold small tournaments, plus regular small marathon events. Winning something means a lot to people, for life.</p>
         </div>
         <div class="work-card">
           <span class="tag now" data-lang="de">Gestartet</span><span class="tag now" data-lang="en">Started</span>
           <h3 data-lang="de">Eine Gemeinschaft, in der wir wachsen.</h3><h3 data-lang="en">A community we grow in.</h3>
-          <p data-lang="de">Die ersten Workshops haben stattgefunden. Menschen vor Ort geben ihr eigenes Wissen weiter, zum Beispiel Mama Maria, die viele Fähigkeiten zu teilen hat und die Community stützt. Einen Community-LifeStraw für sicheres Wasser haben wir schon installiert.</p>
-          <p data-lang="en">The first workshops have taken place. People on the ground pass on their own knowledge — for example Mama Mary, who has many skills to share and supports the community. We have already installed a community LifeStraw for safe water.</p>
+          <p data-lang="de">Die ersten Workshops haben stattgefunden. Menschen vor Ort geben ihr eigenes Wissen weiter, zum Beispiel Mama Maria, die viele Fähigkeiten zu teilen hat und die Community stützt. Einen Community-LifeStraw für sicheres Wasser haben wir schon installiert: ein erster Schritt, der zeigt, wie wir die ganze Gemeinschaft stärken. Dazu haben wir Malsachen und Spielzeug bereitgestellt. Alles, was die Kindheit schöner und sicherer macht.</p>
+          <p data-lang="en">The first workshops have taken place. People on the ground pass on their own knowledge — for example Mama Mary, who has many skills to share and supports the community. We have already installed a community LifeStraw for safe water: a first step that shows how we strengthen the whole community. We have also provided art supplies and toys: everything that makes childhood brighter and safer.</p>
         </div>
-        <div class="work-card">
-          <span class="tag next" data-lang="de">Unsere Ziele</span><span class="tag next" data-lang="en">Our goals</span>
-          <h3 data-lang="de">Zugang zu Wissen und Infrastruktur</h3><h3 data-lang="en">Access to knowledge and infrastructure</h3>
-          <p data-lang="de">Ein Cyber-Raum, in dem Kinder selbst Skills lernen und Zugang zu Informationen haben, außerdem bessere Infrastruktur im Dorf. Was die Gemeinschaft stärkt, stärkt auch die Kinder.</p>
-          <p data-lang="en">A cyber room where children can learn skills themselves and access information, plus better infrastructure in the village. What strengthens the community strengthens the children.</p>
+      </div>
+
+      <div class="school-block">
+        <figure>
+          <img src="assets/school_class.jpg" loading="lazy" alt="Eine große Gruppe kleiner Kinder in roten Schuluniformen und Trikots steht auf sandigem Boden vor einem Lehmziegelgebäude mit bunt bemalter Wand und den Vokalen a, e, i, o, u, dahinter eine Frau und ein Mann" data-alt-en="A large group of small children in red school uniforms and jerseys standing on sandy ground in front of a mud-brick building with a colourfully painted wall showing the vowels a, e, i, o, u, with a woman and a man behind them">
+        </figure>
+        <div class="school-text">
+          <span class="tag next" data-lang="de">Als Nächstes</span><span class="tag next" data-lang="en">Next up</span>
+          <h3 data-lang="de">Schulen und Lernräume selbst verbessern.</h3><h3 data-lang="en">Fixing up the schools and classrooms themselves.</h3>
+          <p data-lang="de">Kinder lernen besser in einem Raum, der heil und sicher ist. Deshalb wollen wir auch an den Schulen selbst anpacken.</p>
+          <p data-lang="de">Das erste Projekt ist dieser Klassenraum der Kleinsten: Er fällt fast auseinander und muss dringend renoviert werden.</p>
+          <p data-lang="en">Children learn better in a room that is intact and safe. That's why we want to get hands-on at the schools themselves.</p>
+          <p data-lang="en">The first project is this classroom for the youngest children. It is almost falling apart and urgently needs renovation.</p>
         </div>
+      </div>
+
+      <div class="roadmap">
+        <span class="tag next" data-lang="de">Unsere Ziele</span><span class="tag next" data-lang="en">Our goals</span>
+        <h3 data-lang="de">Was langfristig daraus wachsen soll</h3><h3 data-lang="en">What we want to grow over time</h3>
+        <p data-lang="de">Das sind große Ziele. Sie bauen aufeinander auf und brauchen Zeit. Wir nennen sie offen, damit ihr seht, wohin die Reise gehen soll.</p>
+        <p data-lang="en">These are big goals. They build on each other and take time. We state them openly, so you can see where we want to go.</p>
+        <div class="road-row">
+          <div class="road-step"><b data-lang="de">Solarstation</b><b data-lang="en">Solar station</b><span data-lang="de">Verlässlicher Strom für das Dorf, die Grundlage für alles Weitere.</span><span data-lang="en">Reliable power for the village, the foundation for everything else.</span></div>
+          <div class="road-arrow">→</div>
+          <div class="road-step"><b data-lang="de">Cyber-Raum</b><b data-lang="en">Cyber room</b><span data-lang="de">Ein Ort, an dem Kinder Zugang zu Wissen haben und selbst Skills lernen.</span><span data-lang="en">A place where children can access knowledge and learn skills themselves.</span></div>
+          <div class="road-arrow">→</div>
+          <div class="road-step"><b data-lang="de">Jugendzentrum</b><b data-lang="en">Youth centre</b><span data-lang="de">Ein Treffpunkt zum Lernen und Zusammenkommen, in dem der Cyber-Raum später aufgehen kann.</span><span data-lang="en">A place to learn and come together, which the cyber room can grow into.</span></div>
+        </div>
+        <p class="road-also" data-lang="de"><b>Ebenfalls mit Sonnenstrom:</b> ein E-Tuktuk für die Gemeinschaft.</p>
+        <p class="road-also" data-lang="en"><b>Also powered by the sun:</b> an e-tuktuk for the community.</p>
       </div>
     </div>
   </section>
