@@ -269,6 +269,7 @@
   }
 
   footer{padding:34px 0;text-align:center;color:var(--ink-soft);font-size:13.5px;}
+  footer a{color:inherit;}
 
   [data-lang="en"]{display:none !important;}
   html[data-active="en"] [data-lang="de"]{display:none !important;}
@@ -667,7 +668,8 @@
 </main>
 
 <footer>
-  <span>© 2026 Nawiri Pamoja e.V. — Berlin</span>
+  <span>© 2026 Nawiri Pamoja e.V.</span>
+  <span> · </span><a href="datenschutz.html"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy policy</span></a>
 </footer>
 
 <div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
@@ -675,7 +677,7 @@
 <script>
   const html = document.documentElement;
   const buttons = document.querySelectorAll('[data-set-lang]');
-  function setLang(l){
+  function setLang(l, persist){
     html.setAttribute('data-active', l);
     html.setAttribute('lang', l);
     buttons.forEach(b => b.classList.toggle('active', b.dataset.setLang === l));
@@ -683,9 +685,9 @@
       if(!i.hasAttribute('data-alt-de')) i.setAttribute('data-alt-de', i.getAttribute('alt') || '');
       i.alt = (l === 'en') ? i.dataset.altEn : i.dataset.altDe;
     });
-    try{ localStorage.setItem('npv_lang', l); }catch(e){}
+    if(persist){ try{ localStorage.setItem('npv_lang', l); }catch(e){} }
   }
-  buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.setLang)));
+  buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
   let saved = 'de';
   try{ saved = localStorage.getItem('npv_lang') || 'de'; }catch(e){}
   setLang(saved);
