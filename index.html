@@ -5,10 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nawiri Pamoja e.V.</title>
 <meta name="description" content="Nawiri Pamoja e.V. – Schulbildung für Kinder in Siaya County, Kenia, gemeinsam mit der Community-Organisation Dongruok Kanyakla.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/source-sans-3-latin-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/baloo-2-latin-var.woff" as="font" type="font/woff" crossorigin>
 <style>
+  /* Schriften lokal eingebunden (SIL Open Font License, siehe assets/fonts/OFL-*.txt) */
+  @font-face{
+    font-family:'Baloo 2';font-style:normal;font-weight:400 800;font-display:swap;
+    src:url(assets/fonts/baloo-2-latin-var.woff) format('woff');
+  }
+  @font-face{
+    font-family:'Source Sans 3';font-style:normal;font-weight:200 900;font-display:swap;
+    src:url(assets/fonts/source-sans-3-latin-var.woff) format('woff');
+  }
   :root{
     --paper:#FBF8F1;
     --paper-dim:#F1ECDC;
