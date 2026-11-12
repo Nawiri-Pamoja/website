@@ -220,6 +220,8 @@
   .cbo .section-head p{color:#CFE0D5;}
   .cbo-intro{max-width:64ch;color:#DCE9DF;margin:0 0 52px;font-size:18px;}
   .cbo-intro.tight{margin-bottom:18px;}
+  .cbo-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 48px;margin:0 0 52px;}
+  .cbo-intro-grid .cbo-intro{max-width:none;margin:0;}
   .team-title{font-size:24px;color:var(--paper);margin:0 0 24px;}
   .team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
   .member-photo{aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:rgba(247,243,234,.12);}
@@ -304,6 +306,7 @@
     .hero-photo{order:-1;max-width:360px;margin:0 auto 18px;}
     .about-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
     .team{grid-template-columns:repeat(2,1fr);}
+    .cbo-intro-grid{grid-template-columns:1fr;}
     .school-block{grid-template-columns:1fr;}
     .school-text{padding:24px 22px;}
     .road-row{grid-template-columns:1fr;}
@@ -516,10 +519,12 @@
         <div class="eyebrow" data-lang="en">Our partner on the ground</div>
         <h2>Dongruok Kanyakla, Siaya County</h2>
       </div>
+      <div class="cbo-intro-grid">
       <p class="cbo-intro tight" data-lang="de">Dongruok Kanyakla ist unsere Partnerorganisation vor Ort. Wir haben sie zusammen mit der Community in Boro, Siaya County, der Heimat von Cathys Familie, gegründet. Rechtlich ist sie eine eigenständige, in Kenia registrierte Community Based Organization mit eigener Satzung und eigenem Konto. Ein Memorandum of Understanding regelt die Partnerschaft: Dongruok legt mindestens vierteljährlich einen Finanzbericht vor und lässt seine Bücher jährlich prüfen. Was mit den Mitteln unserer Organisation angeschafft wird, gehört der CBO und keiner einzelnen Person.</p>
       <p class="cbo-intro" data-lang="de">Die Familien leben als Selbstversorger von der Landwirtschaft. Sie kennen ihr Land, ihre Kinder und ihre Nachbarn, sie wissen und verstehen, was gebraucht wird, und sie stemmen die eigentliche Arbeit vor Ort. Bei uns gibt es keinen Umweg und keinen Overhead: Wir arbeiten nicht neben der Gemeinschaft, sondern mittendrin, miteinander und füreinander. Unsere beiden Organisationen wachsen mit den Kindern. Geführt wird Dongruok von einem gewählten Komitee.</p>
       <p class="cbo-intro tight" data-lang="en">Dongruok Kanyakla is our partner organization on the ground. We founded it together with the community in Boro, Siaya County, the home of Cathy's family. Legally it is an independent community based organization registered in Kenya, with its own constitution and its own bank account. A Memorandum of Understanding governs the partnership: Dongruok submits a financial report at least quarterly and has its books audited every year. Whatever is acquired with our organization's funds belongs to the CBO, not to any individual.</p>
       <p class="cbo-intro" data-lang="en">The families live as subsistence farmers. They know their land, their children and their neighbors, they know and understand what is needed, and they do the real work on the ground. With us there is no detour and no overhead: we don't work alongside the community but in the middle of it, with each other and for each other. Our two organizations grow with the children. Dongruok is run by an elected committee.</p>
+      </div>
 
       <h3 class="team-title" data-lang="de">Das Komitee</h3>
       <h3 class="team-title" data-lang="en">The committee</h3>
