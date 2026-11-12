@@ -218,19 +218,19 @@
   .cbo .eyebrow{color:var(--gold);}
   .cbo .section-head h2{color:var(--paper);}
   .cbo .section-head p{color:#CFE0D5;}
-  .cbo-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:52px;align-items:start;}
-  .locator{border:1px solid rgba(247,243,234,0.25);border-radius:4px;padding:26px;}
-  .locator .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(247,243,234,0.15);font-size:14px;gap:12px;}
-  .locator .row:last-child{border-bottom:none;}
-  .locator .row span:first-child{color:#9DBBA9;}
-  .locator .row span:last-child{text-align:right;}
-  .cbo-body p{color:#DCE9DF;margin:0 0 16px;}
-  .cbo-body ul{margin:18px 0 0;padding:0;list-style:none;}
-  .cbo-body li{
-    padding:12px 0;border-top:1px solid rgba(247,243,234,0.15);
-    display:flex;gap:14px;font-size:15.5px;color:#E7EFE9;
-  }
-  .cbo-body li .mark{color:var(--gold);font-weight:700;}
+  .cbo-intro{max-width:64ch;color:#DCE9DF;margin:0 0 52px;font-size:18px;}
+  .cbo-intro.tight{margin-bottom:18px;}
+  .team-title{font-size:24px;color:var(--paper);margin:0 0 24px;}
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .member-photo{aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:rgba(247,243,234,.12);}
+  .member-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;}
+  .member-photo.ph{display:flex;align-items:center;justify-content:center;}
+  .member-photo.ph svg{width:46%;height:auto;fill:rgba(247,243,234,.38);}
+  .member h3{font-size:21px;color:var(--paper);margin:16px 0 2px;}
+  .member .role{color:var(--gold);font-size:14px;font-weight:700;}
+  .member .job{color:var(--paper);font-size:14px;font-weight:700;margin-bottom:8px;}
+  .member p{color:#DCE9DF;font-size:15.5px;margin:0;}
+  .team-note{color:#CFE0D5;font-size:15.5px;margin:36px 0 0;max-width:64ch;}
 
   /* ---------- Gallery ---------- */
   .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;}
@@ -302,7 +302,8 @@
     header.menu-open .menu-btn .ic-close{display:block !important;}
     .hero .wrap{grid-template-columns:1fr;}
     .hero-photo{order:-1;max-width:360px;margin:0 auto 18px;}
-    .about-grid, .cbo-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
+    .about-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
+    .team{grid-template-columns:repeat(2,1fr);}
     .school-block{grid-template-columns:1fr;}
     .school-text{padding:24px 22px;}
     .road-row{grid-template-columns:1fr;}
@@ -312,6 +313,10 @@
     section{padding:60px 0;}
   }
   @media (max-width: 560px){
+    .team{grid-template-columns:1fr;gap:28px;}
+    .member{display:grid;grid-template-columns:112px 1fr;column-gap:16px;align-items:start;}
+    .member-photo{grid-row:1 / span 4;}
+    .member h3{margin-top:0;}
     .hero .cities{flex-direction:column;align-items:flex-start;gap:4px;}
     .hero .city-arrow{display:inline-block;transform:rotate(90deg);margin-left:2px;}
   }
@@ -428,10 +433,12 @@
           <h3 style="margin-top:28px;" data-lang="de">Wie wir arbeiten</h3>
           <h3 style="margin-top:28px;" data-lang="en">How we work</h3>
           <ul class="plain-list">
-            <li data-lang="de"><b>Die Entscheidungen trifft die Gemeinschaft.</b> Was ein Kind oder die Gemeinschaft braucht, entscheiden die Menschen, die es am besten wissen.</li>
-            <li data-lang="de"><b>Saubere Strukturen auf beiden Seiten:</b> Satzungen und ein Memorandum of Understanding zwischen Nawiri und Dongruok.</li>
-            <li data-lang="en"><b>The community makes the decisions.</b> What a child or the community needs is decided by the people who know best.</li>
-            <li data-lang="en"><b>Clean structures on both sides:</b> statutes and a Memorandum of Understanding between Nawiri and Dongruok.</li>
+            <li data-lang="de"><b>Die Gemeinschaft bestimmt mit.</b> Was ein Kind oder die Gemeinschaft braucht, wissen die Menschen vor Ort am besten.</li>
+            <li data-lang="de"><b>Saubere Strukturen auf beiden Seiten.</b> Satzungen, ein Memorandum of Understanding und regelmäßige Berichte.</li>
+            <li data-lang="de"><b>Alle sind das Team.</b> Gemeinsam produzieren wir auch etwas, beispielsweise Karten oder Bilder, die wir mit den Kindern gestalten.</li>
+            <li data-lang="en"><b>The community has a say.</b> The people on the ground know best what a child or the community needs.</li>
+            <li data-lang="en"><b>Clean structures on both sides.</b> Statutes, a Memorandum of Understanding and regular reports.</li>
+            <li data-lang="en"><b>Everyone is part of the team.</b> Together we also produce things, for example cards or pictures that we design with the children.</li>
           </ul>
         </div>
       </div>
@@ -509,25 +516,52 @@
         <div class="eyebrow" data-lang="en">Our partner on the ground</div>
         <h2>Dongruok Kanyakla, Siaya County</h2>
       </div>
-      <div class="cbo-grid">
-        <div class="locator">
-          <div class="row"><span data-lang="de">Organisation</span><span data-lang="en">Organization</span><span>Dongruok Kanyakla CBO</span></div>
-          <div class="row"><span data-lang="de">Region</span><span data-lang="en">Region</span><span>Alego Usonga, Siaya</span></div>
-          <div class="row"><span data-lang="de">Land</span><span data-lang="en">Country</span><span>Kenya</span></div>
-          <div class="row"><span>Status</span><span data-lang="de">In Kenia registrierte Community-Organisation</span><span data-lang="en">Registered community organization in Kenya</span></div>
+      <p class="cbo-intro tight" data-lang="de">Dongruok Kanyakla ist unsere Partnerorganisation vor Ort. Wir haben sie zusammen mit der Community in Boro, Siaya County, der Heimat von Cathys Familie, gegründet. Rechtlich ist sie eine eigenständige, in Kenia registrierte Community Based Organization mit eigener Satzung und eigenem Konto. Ein Memorandum of Understanding regelt die Partnerschaft: Dongruok legt mindestens vierteljährlich einen Finanzbericht vor und lässt seine Bücher jährlich prüfen. Was mit den Mitteln unserer Organisation angeschafft wird, gehört der CBO und keiner einzelnen Person.</p>
+      <p class="cbo-intro" data-lang="de">Die Familien leben als Selbstversorger von der Landwirtschaft. Sie kennen ihr Land, ihre Kinder und ihre Nachbarn, sie wissen und verstehen, was gebraucht wird, und sie stemmen die eigentliche Arbeit vor Ort. Bei uns gibt es keinen Umweg und keinen Overhead: Wir arbeiten nicht neben der Gemeinschaft, sondern mittendrin, miteinander und füreinander. Unsere beiden Organisationen wachsen mit den Kindern. Geführt wird Dongruok von einem gewählten Komitee.</p>
+      <p class="cbo-intro tight" data-lang="en">Dongruok Kanyakla is our partner organization on the ground. We founded it together with the community in Boro, Siaya County, the home of Cathy's family. Legally it is an independent community based organization registered in Kenya, with its own constitution and its own bank account. A Memorandum of Understanding governs the partnership: Dongruok submits a financial report at least quarterly and has its books audited every year. Whatever is acquired with our organization's funds belongs to the CBO, not to any individual.</p>
+      <p class="cbo-intro" data-lang="en">The families live as subsistence farmers. They know their land, their children and their neighbors, they know and understand what is needed, and they do the real work on the ground. With us there is no detour and no overhead: we don't work alongside the community but in the middle of it, with each other and for each other. Our two organizations grow with the children. Dongruok is run by an elected committee.</p>
+
+      <h3 class="team-title" data-lang="de">Das Komitee</h3>
+      <h3 class="team-title" data-lang="en">The committee</h3>
+
+      <!--
+        FOTOS: Dateien in assets/team/ legen (Hochformat 4:5, Gesicht im oberen Drittel, ca. 800 px breit, unter 150 KB).
+        Platzhalter ersetzen: den <div class="member-photo ph">…</div> durch
+        <div class="member-photo"><img src="assets/team/DATEI.jpg" loading="lazy" alt="…" data-alt-en="…"></div> tauschen.
+        Texte mit [Klammern] sind Platzhalter.
+      -->
+      <div class="team">
+        <div class="member">
+          <div class="member-photo"><img src="assets/team/cathy.jpg" loading="lazy" alt="Cathy, Vorsitzende von Dongruok Kanyakla" data-alt-en="Cathy, chairperson of Dongruok Kanyakla"></div>
+          <h3>Cathy</h3>
+          <div class="role" data-lang="de">Vorsitzende</div><div class="role" data-lang="en">Chairperson</div>
+          <div class="job" data-lang="de">Gründerin &amp; CEO, Tawari Digital</div><div class="job" data-lang="en">Founder &amp; CEO, Tawari Digital</div>
+          <p data-lang="de">Cathy lebt in Nairobi, wo sie ihre eigene Tech-Firma aufgebaut hat und leitet. Sie ist in unserer Community verwurzelt. Gemeinsam mit einer anderen CBO gibt sie ihr Technikwissen weiter: Zwei Tage pro Woche unterrichtet sie mit Theorie und Praxis, ähnlich wie an einer Berufsschule, damit junge Menschen als Techniker arbeiten können. Cathy ist das Verbindungsglied zwischen der Gemeinschaft vor Ort und uns.</p>
+          <p data-lang="en">Cathy lives in Nairobi, where she built up and runs her own tech company. She is rooted in our community. Together with another CBO she passes on her technical knowledge: two days a week she teaches with theory and hands-on practice, much like a vocational school, so that young people can work as technicians. Cathy is the link between the community on the ground and us.</p>
         </div>
-        <div class="cbo-body">
-          <p data-lang="de">Dongruok Kanyakla ist eine eigenständige Community Based Organization in Alego Usonga, Siaya County — der Heimat von Cathys Familie. Cathy selbst lebt und arbeitet in Nairobi; zur Gemeinschaft in Siaya hat sie über ihre Familie eine enge, langjährige Verbindung.</p>
-          <p data-lang="en">Dongruok Kanyakla is an independent Community Based Organization in Alego Usonga, Siaya County — the home of Cathy's family. Cathy herself lives and works in Nairobi; her connection to the community in Siaya runs through her family, who have deep, long-standing roots there.</p>
-
-          <p data-lang="de">Geführt wird die CBO von einem gewählten Komitee: Cathy als Vorsitzende, ein Lehrer der Kinder, der Paralegal von Siaya und Maria, von allen in Siaya nur „Mama“ genannt — als Kassenwartin. Die Familien in der Gemeinschaft leben als Selbstversorger von der Landwirtschaft.</p>
-          <p data-lang="en">The CBO is run by an elected committee: Cathy as Chairperson, a teacher of the children, the paralegal of Siaya, and Mary — known to everyone in Siaya simply as “Mama” — as Treasurer. The families in the community are self-sufficient, living from farming.</p>
-
-          <ul>
-            <li><span class="mark">01</span><span data-lang="de">Identifiziert Kinder, die Unterstützung beim Schulbesuch brauchen</span><span data-lang="en">Identifies children who need support to attend school</span></li>
-            <li><span class="mark">02</span><span data-lang="de">Entscheidet vor Ort, was Kinder und Familien brauchen</span><span data-lang="en">Decides locally what children and families need</span></li>
-            <li><span class="mark">03</span><span data-lang="de">Hält mit uns Rücksprache über die Verwendung der Mittel</span><span data-lang="en">Consults with us on how funds are used</span></li>
-          </ul>
+        <div class="member">
+          <div class="member-photo"><img src="assets/team/chrispin.jpg" loading="lazy" alt="Chrispin, stellvertretender Vorsitzender von Dongruok Kanyakla" data-alt-en="Chrispin, vice chairperson of Dongruok Kanyakla"></div>
+          <h3>Chrispin</h3>
+          <div class="role" data-lang="de">Stellvertretender Vorsitzender</div><div class="role" data-lang="en">Vice Chairperson</div>
+          <div class="job" data-lang="de">Paralegal von Siaya</div><div class="job" data-lang="en">Paralegal of Siaya</div>
+          <p data-lang="de">Chrispin ist Rechtswissenschaftler und arbeitet als Paralegal, also als rechtskundiger Ansprechpartner mitten in der Gemeinschaft. Er berät und unterstützt Menschen in rechtlichen Fragen, vermittelt bei Konflikten, begleitet bei Behördengängen und packt bei der Gemeinschaftsarbeit mit an.</p>
+          <p data-lang="en">Chrispin is a legal scholar and works as a paralegal, a legally trained point of contact right in the community. He advises and supports people with legal questions, mediates in conflicts, helps them deal with authorities and pitches in on community work.</p>
+        </div>
+        <div class="member">
+          <div class="member-photo"><img src="assets/team/mama-maria.jpg" loading="lazy" alt="Mama Maria, Kassenwartin von Dongruok Kanyakla" data-alt-en="Mama Mary, treasurer of Dongruok Kanyakla"></div>
+          <h3 data-lang="de">Maria</h3><h3 data-lang="en">Mary</h3>
+          <div class="role" data-lang="de">Kassenwartin</div><div class="role" data-lang="en">Treasurer</div>
+          <div class="job" data-lang="de">Mama</div><div class="job" data-lang="en">Mama</div>
+          <p data-lang="de">Seit Cathy denken kann, ist Mamas Haus voller Kinder, nicht nur ihrer eigenen. Sie zieht sie mit groß und bringt ihnen Fertigkeiten bei. Eine Zeit lang war sie regionale Vorsitzende von „Maendeleo ya Wanawake“, der ältesten und größten Frauenrechtsorganisation Kenias. Weit und breit wird sie von allen nur „Mama“ genannt.</p>
+          <p data-lang="en">For as long as Cathy can remember, Mama’s house has been full of children, not only her own. She helps raise them and teaches them skills. For a time she was regional chair of “Maendeleo ya Wanawake”, Kenya’s oldest and largest women’s rights organization. Far and wide, everyone simply calls her “Mama”.</p>
+        </div>
+        <div class="member">
+          <div class="member-photo ph"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="36" r="18"/><path d="M14 92c0-22 16-34 36-34s36 12 36 34z"/></svg></div>
+          <h3>Charles</h3>
+          <div class="role" data-lang="de">Schriftführer</div><div class="role" data-lang="en">Secretary</div>
+          <div class="job" data-lang="de">Lehrer der Kinder</div><div class="job" data-lang="en">Teacher of the children</div>
+          <p data-lang="de">Charles unterrichtet an der Schule, die einige unserer Kinder besuchen. Er erlebt im Klassenzimmer, was Kinder brauchen und wo es hakt, und bringt diesen Blick ins Komitee.</p>
+          <p data-lang="en">Charles teaches at the school that some of our children attend. In the classroom he sees what children need and where things get stuck, and brings that view to the committee.</p>
         </div>
       </div>
     </div>
