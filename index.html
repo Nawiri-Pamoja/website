@@ -51,6 +51,9 @@
     --green:#2BB454;
     --green-deep:#0E7A3E;
     --gold:#F89C36;
+    /* Orange für kleine Schrift: --clay/--gold erreichen als Text nicht den nötigen Kontrast (WCAG AA 4,5:1) */
+    --clay-text:#A85A0C;   /* 4,8:1 auf --paper */
+    --gold-on-green:#FFEAC8; /* 4,6:1 auf --green-deep */
     --blue:#1C75B8;
     --blue-deep:#134F7D;
     --line:#E1D8C3;
@@ -172,7 +175,7 @@
 
   /* ---------- Sections generic ---------- */
   .section-head{max-width:60ch;margin-bottom:48px;}
-  .eyebrow{font-size:14px;color:var(--clay);font-weight:700;margin-bottom:10px;}
+  .eyebrow{font-size:14px;color:var(--clay-text);font-weight:700;margin-bottom:10px;}
   .section-head h2{font-size:clamp(28px,3.6vw,38px);font-weight:600;}
   .section-head p{margin-top:14px;color:var(--ink-soft);font-size:17px;}
 
@@ -240,7 +243,7 @@
   .cbo{background:var(--green-deep);color:var(--paper);}
   .cbo-logo-card{background:var(--paper);border-radius:8px;padding:18px 26px;display:inline-flex;margin-bottom:28px;}
   .cbo-logo-card img{height:80px;width:auto;display:block;}
-  .cbo .eyebrow{color:var(--gold);}
+  .cbo .eyebrow{color:var(--gold-on-green);}
   .cbo .section-head h2{color:var(--paper);}
   .cbo .section-head p{color:#CFE0D5;}
   .cbo-intro{max-width:64ch;color:#DCE9DF;margin:0 0 52px;font-size:18px;}
@@ -254,7 +257,7 @@
   .member-photo.ph{display:flex;align-items:center;justify-content:center;}
   .member-photo.ph svg{width:46%;height:auto;fill:rgba(247,243,234,.38);}
   .member h3{font-size:21px;color:var(--paper);margin:16px 0 2px;}
-  .member .role{color:var(--gold);font-size:14px;font-weight:700;}
+  .member .role{color:var(--gold-on-green);font-size:14px;font-weight:700;}
   .member .job{color:var(--paper);font-size:14px;font-weight:700;margin-bottom:8px;}
   .member p{color:#DCE9DF;font-size:15.5px;margin:0;}
   .team-note{color:#CFE0D5;font-size:15.5px;margin:36px 0 0;max-width:64ch;}
@@ -268,9 +271,33 @@
     position:absolute;left:0;right:0;bottom:0;padding:26px 14px 11px;color:#fff;font-size:14px;
     background:linear-gradient(transparent,rgba(15,25,30,.62));
   }
-  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(12,20,24,.92);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+  .gallery-grid figure:focus-visible{outline:3px solid var(--blue);outline-offset:3px;}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(12,20,24,.94);display:none;align-items:center;justify-content:center;padding:24px 72px;cursor:zoom-out;}
   .lightbox.open{display:flex;}
-  .lightbox img{max-width:100%;max-height:100%;border-radius:6px;}
+  .lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:100%;max-height:100%;}
+  .lb-fig img{max-width:100%;max-height:calc(100vh - 110px);border-radius:6px;}
+  .lb-cap{color:#F1ECDC;font-size:15px;text-align:center;}
+  .lb-btn{
+    position:absolute;width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;
+    background:rgba(251,248,241,.16);color:#fff;font-size:28px;line-height:1;
+    display:flex;align-items:center;justify-content:center;font-family:inherit;
+  }
+  .lb-btn:hover{background:rgba(251,248,241,.3);}
+  .lb-btn:focus-visible{outline:3px solid #fff;outline-offset:2px;}
+  .lb-close{top:16px;right:16px;}
+  .lb-prev{left:12px;top:50%;transform:translateY(-50%);}
+  .lb-next{right:12px;top:50%;transform:translateY(-50%);}
+  @media (max-width:560px){
+    .lightbox{padding:72px 12px 84px;}
+    .lb-prev,.lb-next{top:auto;bottom:18px;transform:none;}
+    .lb-prev{left:calc(50% - 60px);} .lb-next{right:calc(50% - 60px);}
+    .lb-fig img{max-height:calc(100vh - 200px);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .gallery-grid img,.brand-logo,.social-link svg{transition:none;}
+    .gallery-grid figure:hover img{transform:none;}
+  }
 
   /* ---------- Donate ---------- */
   .donate-box{
@@ -356,11 +383,11 @@
   <div class="nav-row">
     <a href="#top" class="brand"><img src="assets/nawiri-logo.svg" alt="Nawiri Pamoja e.V." class="brand-logo"></a>
     <nav class="links" id="site-nav">
-      <a href="#about" data-lang="de">Über uns</a><a href="#about" data-lang="en">About</a>
-      <a href="#cbo" data-lang="de">Partner vor Ort</a><a href="#cbo" data-lang="en">Partner on the ground</a>
-      <a href="#gallery" data-lang="de">Galerie</a><a href="#gallery" data-lang="en">Gallery</a>
-      <a href="#donate" data-lang="de">Unterstützen</a><a href="#donate" data-lang="en">Support us</a>
-      <a href="#contact" data-lang="de">Kontakt</a><a href="#contact" data-lang="en">Contact</a>
+      <a href="#about" data-lang="de" lang="de">Über uns</a><a href="#about" data-lang="en" lang="en">About</a>
+      <a href="#cbo" data-lang="de" lang="de">Partner vor Ort</a><a href="#cbo" data-lang="en" lang="en">Partner on the ground</a>
+      <a href="#gallery" data-lang="de" lang="de">Galerie</a><a href="#gallery" data-lang="en" lang="en">Gallery</a>
+      <a href="#donate" data-lang="de" lang="de">Unterstützen</a><a href="#donate" data-lang="en" lang="en">Support us</a>
+      <a href="#contact" data-lang="de" lang="de">Kontakt</a><a href="#contact" data-lang="en" lang="en">Contact</a>
       <a class="social-link nav-social" href="https://bsky.app/profile/nawiri-pamoja.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky" title="Bluesky"><svg viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg></a>
       <div class="lang-toggle">
         <button data-set-lang="de" class="active">DE</button>
@@ -386,17 +413,17 @@
     <div class="wrap">
       <div>
         <div class="kicker"><span class="rule"></span>
-          <span data-lang="de">Nawiri Pamoja</span>
-          <span data-lang="en">Nawiri Pamoja</span>
+          <span data-lang="de" lang="de">Nawiri Pamoja</span>
+          <span data-lang="en" lang="en">Nawiri Pamoja</span>
         </div>
-        <h1 data-lang="de">Zusammen wachsen.</h1>
-        <h1 data-lang="en">Thriving together.</h1>
-        <p class="lead" data-lang="de">Wir unterstützen gemeinsam Kinder in Siaya County in Kenia dabei, zur Schule zu gehen, ohne dass Schulkosten im Weg stehen. Wir unterstützen sie dabei, Kinder zu sein und selbstbestimmt und mit gleichen Chancen aufzuwachsen. Wir fördern das Teilen von Wissen und Fähigkeiten und stärken, was die Gemeinschaft trägt und das Leben sicherer macht.</p>
-        <p class="lead" data-lang="en">Together, we support children in Siaya County, Kenya, in going to school without the cost of school standing in the way. We support them in being children and in growing up self-determined and with equal opportunities. We encourage the sharing of knowledge and skills, and we strengthen what carries the community and makes life safer.</p>
+        <h1 data-lang="de" lang="de">Zusammen wachsen.</h1>
+        <h1 data-lang="en" lang="en">Thriving together.</h1>
+        <p class="lead" data-lang="de" lang="de">Wir unterstützen gemeinsam Kinder in Siaya County in Kenia dabei, zur Schule zu gehen, ohne dass Schulkosten im Weg stehen. Wir unterstützen sie dabei, Kinder zu sein und selbstbestimmt und mit gleichen Chancen aufzuwachsen. Wir fördern das Teilen von Wissen und Fähigkeiten und stärken, was die Gemeinschaft trägt und das Leben sicherer macht.</p>
+        <p class="lead" data-lang="en" lang="en">Together, we support children in Siaya County, Kenya, in going to school without the cost of school standing in the way. We support them in being children and in growing up self-determined and with equal opportunities. We encourage the sharing of knowledge and skills, and we strengthen what carries the community and makes life safer.</p>
         <div class="cities">
-          <div><b>Berlin</b> | <span data-lang="de">gemeinnütziger Verein</span><span data-lang="en">registered non-profit</span></div>
-          <div class="city-arrow">↔</div>
-          <div><b>Siaya, Kenya</b> | <span data-lang="de">Partner-CBO vor Ort</span><span data-lang="en">partner CBO on the ground</span></div>
+          <div><b>Berlin</b> | <span data-lang="de" lang="de">gemeinnütziger Verein</span><span data-lang="en" lang="en">registered non-profit</span></div>
+          <div class="city-arrow" aria-hidden="true">↔</div>
+          <div><b>Siaya, Kenya</b> | <span data-lang="de" lang="de">Partner-CBO vor Ort</span><span data-lang="en" lang="en">partner CBO on the ground</span></div>
         </div>
       </div>
       <div class="hero-photo">
@@ -409,22 +436,22 @@
   <section id="name">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Unsere Organisation</div>
-        <div class="eyebrow" data-lang="en">Our organisation</div>
-        <h2 data-lang="de">Der Name</h2>
-        <h2 data-lang="en">The name</h2>
+        <div class="eyebrow" data-lang="de" lang="de">Unsere Organisation</div>
+        <div class="eyebrow" data-lang="en" lang="en">Our organisation</div>
+        <h2 data-lang="de" lang="de">Der Name</h2>
+        <h2 data-lang="en" lang="en">The name</h2>
       </div>
       <div class="name-box">
         <div class="name-pair">
-          <div><b>Nawiri Pamoja e.V.</b><span data-lang="de">Swahili | Unser Verein in Berlin</span><span data-lang="en">Swahili | our association in Berlin</span></div>
-          <div><b>Dongruok Kanyakla CBO</b><span data-lang="de">Dholuo | Unsere Partnerorganisation in Siaya</span><span data-lang="en">Dholuo | our partner organisation in Siaya</span></div>
+          <div><b>Nawiri Pamoja e.V.</b><span data-lang="de" lang="de">Swahili | Unser Verein in Berlin</span><span data-lang="en" lang="en">Swahili | our association in Berlin</span></div>
+          <div><b>Dongruok Kanyakla CBO</b><span data-lang="de" lang="de">Dholuo | Unsere Partnerorganisation in Siaya</span><span data-lang="en" lang="en">Dholuo | our partner organisation in Siaya</span></div>
         </div>
-        <p data-lang="de">Beide Namen bedeuten dasselbe: <b>zusammen wachsen, gedeihen und aufblühen</b>.</p>
-        <p data-lang="de">Dholuo ist die Muttersprache der Luo, zu denen die Menschen in Siaya gehören.</p>
-        <p data-lang="de">Das ist kein Slogan, sondern unsere Motivation: Kinder blühen am besten auf, wenn sie gute, sichere Schulbildung haben und eine starke Gemeinschaft im Rücken. Im Kleinen wie im Großen: Wir wachsen alle, wenn wir voneinander und miteinander lernen.</p>
-        <p data-lang="en">Both names mean the same thing: <b>thriving and growing together</b>.</p>
-        <p data-lang="en">Dholuo is the mother tongue of the Luo, the people of Siaya.</p>
-        <p data-lang="en">This is not a slogan but our motivation: children thrive best with good, safe schooling and a strong community behind them. In small ways and big ones, we all grow when we learn from and with each other.</p>
+        <p data-lang="de" lang="de">Beide Namen bedeuten dasselbe: <b>zusammen wachsen, gedeihen und aufblühen</b>.</p>
+        <p data-lang="de" lang="de">Dholuo ist die Muttersprache der Luo, zu denen die Menschen in Siaya gehören.</p>
+        <p data-lang="de" lang="de">Das ist kein Slogan, sondern unsere Motivation: Kinder blühen am besten auf, wenn sie gute, sichere Schulbildung haben und eine starke Gemeinschaft im Rücken. Im Kleinen wie im Großen: Wir wachsen alle, wenn wir voneinander und miteinander lernen.</p>
+        <p data-lang="en" lang="en">Both names mean the same thing: <b>thriving and growing together</b>.</p>
+        <p data-lang="en" lang="en">Dholuo is the mother tongue of the Luo, the people of Siaya.</p>
+        <p data-lang="en" lang="en">This is not a slogan but our motivation: children thrive best with good, safe schooling and a strong community behind them. In small ways and big ones, we all grow when we learn from and with each other.</p>
       </div>
     </div>
   </section>
@@ -433,40 +460,40 @@
   <section id="about">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Warum es uns gibt</div>
-        <div class="eyebrow" data-lang="en">Why we exist</div>
-        <h2 data-lang="de">Gemeinschaft ist kein Nullsummenspiel.</h2>
-        <h2 data-lang="en">Community is not a zero-sum game.</h2>
+        <div class="eyebrow" data-lang="de" lang="de">Warum es uns gibt</div>
+        <div class="eyebrow" data-lang="en" lang="en">Why we exist</div>
+        <h2 data-lang="de" lang="de">Gemeinschaft ist kein Nullsummenspiel.</h2>
+        <h2 data-lang="en" lang="en">Community is not a zero-sum game.</h2>
       </div>
       <div class="about-grid">
         <div>
-          <p data-lang="de">Nawiri Pamoja wurde von Cathy und Philipp gemeinsam gegründet. Wir sind Freunde und teilen eine Überzeugung: Teilen ist kein Nullsummenspiel. Privilegien sind eine Sache, von der man mehr hat, wenn man sie teilt.</p>
-          <p data-lang="de">Unser Wissen gehört uns allen, und es zu teilen lässt es gedeihen. „Ich bin Farmerin, ich säe.“ hat Cathy gesagt, als wir uns kennengelernt haben. Sie meinte es doppeldeutig. Sie ist in einer Farmer-Community aufgewachsen. Und sie hat sich selbstständig Tech-Skills angeeignet, ist Gründerin und CEO von Tawari Digital Ltd., einem der bestbewerteten Apple- und Mobile-Phone-Repair-Shops in Nairobi. Heute gibt sie ihr Tech-Wissen nebenher in Kooperation mit einer Organisation an viele andere Kids weiter. Cathy sät Wissen. Certified Girl Tech!</p>
-          <p data-lang="de">An Weisheit zu gelangen kann einen hohen Preis kosten. Von der Weisheit anderer zu profitieren lässt sich mit Geld nicht kaufen. Und mehr Perspektiven erlangt man am besten, wenn man aufhört, es besser zu wissen.</p>
-          <p data-lang="de">Mehr gut ausgebildete Fachkräfte sind gut für alle. Mehr gute Ärzte zu haben, beispielsweise, ist gut für uns alle, die wir Ärzte brauchen. Und gut für die Person, die Arzt werden kann.</p>
+          <p data-lang="de" lang="de">Nawiri Pamoja wurde von Cathy und Philipp gemeinsam gegründet. Wir sind Freunde und teilen eine Überzeugung: Teilen ist kein Nullsummenspiel. Privilegien sind eine Sache, von der man mehr hat, wenn man sie teilt.</p>
+          <p data-lang="de" lang="de">Unser Wissen gehört uns allen, und es zu teilen lässt es gedeihen. „Ich bin Farmerin, ich säe.“ hat Cathy gesagt, als wir uns kennengelernt haben. Sie meinte es doppeldeutig. Sie ist in einer Farmer-Community aufgewachsen. Und sie hat sich selbstständig Tech-Skills angeeignet, ist Gründerin und CEO von Tawari Digital Ltd., einem der bestbewerteten Apple- und Mobile-Phone-Repair-Shops in Nairobi. Heute gibt sie ihr Tech-Wissen nebenher in Kooperation mit einer Organisation an viele andere Kids weiter. Cathy sät Wissen. Certified Girl Tech!</p>
+          <p data-lang="de" lang="de">An Weisheit zu gelangen kann einen hohen Preis kosten. Von der Weisheit anderer zu profitieren lässt sich mit Geld nicht kaufen. Und mehr Perspektiven erlangt man am besten, wenn man aufhört, es besser zu wissen.</p>
+          <p data-lang="de" lang="de">Mehr gut ausgebildete Fachkräfte sind gut für alle. Mehr gute Ärzte zu haben, beispielsweise, ist gut für uns alle, die wir Ärzte brauchen. Und gut für die Person, die Arzt werden kann.</p>
 
-          <p data-lang="en">Nawiri Pamoja was founded jointly by Cathy and Philipp. We are friends and share one conviction: sharing is not a zero-sum game. Privileges are something you end up with more of when you share them.</p>
-          <p data-lang="en">Our knowledge belongs to all of us, and sharing it lets it thrive. “I'm a farmer, I sow,” Cathy said when we first met. She meant it in two ways. She grew up in a farming community. And she taught herself tech skills, is founder and CEO of Tawari Digital Ltd., one of the best-rated Apple and mobile phone repair shops in Nairobi. Today she passes on her tech knowledge on the side, in cooperation with an organization, to many other kids. Cathy sows knowledge. Certified Girl Tech!</p>
-          <p data-lang="en">Gaining wisdom can come at a high price. Benefiting from the wisdom of others can't be bought with money. And you gain new perspectives best by letting go of the need to know better.</p>
-          <p data-lang="en">More well-trained professionals are good for everyone. Having more good doctors, for example, is good for all of us who need doctors — and good for the person who gets the chance to become one.</p>
+          <p data-lang="en" lang="en">Nawiri Pamoja was founded jointly by Cathy and Philipp. We are friends and share one conviction: sharing is not a zero-sum game. Privileges are something you end up with more of when you share them.</p>
+          <p data-lang="en" lang="en">Our knowledge belongs to all of us, and sharing it lets it thrive. “I'm a farmer, I sow,” Cathy said when we first met. She meant it in two ways. She grew up in a farming community. And she taught herself tech skills, is founder and CEO of Tawari Digital Ltd., one of the best-rated Apple and mobile phone repair shops in Nairobi. Today she passes on her tech knowledge on the side, in cooperation with an organization, to many other kids. Cathy sows knowledge. Certified Girl Tech!</p>
+          <p data-lang="en" lang="en">Gaining wisdom can come at a high price. Benefiting from the wisdom of others can't be bought with money. And you gain new perspectives best by letting go of the need to know better.</p>
+          <p data-lang="en" lang="en">More well-trained professionals are good for everyone. Having more good doctors, for example, is good for all of us who need doctors — and good for the person who gets the chance to become one.</p>
         </div>
         <div>
-          <p data-lang="de">Darum ist Nawiri Pamoja ein Projekt der Gemeinschaft. Zusammen haben wir mehr als genug von allem, wenn wir es gleich unter uns aufteilen. Daran arbeiten wir gemeinsam: im Verein Nawiri Pamoja in Berlin und in der CBO Dongruok Kanyakla in Siaya. Und mit allen, die mitmachen, etwas teilen und dazugehören.</p>
-          <p data-lang="en">That's why Nawiri Pamoja is a project of the community. Together we have more than enough of everything, if we share it equally among us. We work on this together: in the association Nawiri Pamoja in Berlin and in the CBO Dongruok Kanyakla in Siaya — and with everyone who joins in, shares something, and belongs.</p>
-          <h3 data-lang="de">Warum ein Verein?</h3>
-          <h3 data-lang="en">Why an association?</h3>
-          <p data-lang="de">Nawiri Pamoja e.V. wurde 2026 in Berlin gegründet und ist als gemeinnützig anerkannt. Der Verein schafft sichere Strukturen für alle Beteiligten: Eigene Konten, transparente Vorgänge und klare Regeln. Unser Zweck ist die Förderung von Bildung und Entwicklungszusammenarbeit.</p>
-          <p data-lang="en">Nawiri Pamoja e.V. was founded in Berlin in 2026 and is recognized as a non-profit. The association creates secure structures for everyone involved: its own accounts, transparent processes, and clear rules. Our purpose is promoting education and development cooperation.</p>
+          <p data-lang="de" lang="de">Darum ist Nawiri Pamoja ein Projekt der Gemeinschaft. Zusammen haben wir mehr als genug von allem, wenn wir es gleich unter uns aufteilen. Daran arbeiten wir gemeinsam: im Verein Nawiri Pamoja in Berlin und in der CBO Dongruok Kanyakla in Siaya. Und mit allen, die mitmachen, etwas teilen und dazugehören.</p>
+          <p data-lang="en" lang="en">That's why Nawiri Pamoja is a project of the community. Together we have more than enough of everything, if we share it equally among us. We work on this together: in the association Nawiri Pamoja in Berlin and in the CBO Dongruok Kanyakla in Siaya — and with everyone who joins in, shares something, and belongs.</p>
+          <h3 data-lang="de" lang="de">Warum ein Verein?</h3>
+          <h3 data-lang="en" lang="en">Why an association?</h3>
+          <p data-lang="de" lang="de">Nawiri Pamoja e.V. wurde 2026 in Berlin gegründet und ist als gemeinnützig anerkannt. Der Verein schafft sichere Strukturen für alle Beteiligten: Eigene Konten, transparente Vorgänge und klare Regeln. Unser Zweck ist die Förderung von Bildung und Entwicklungszusammenarbeit.</p>
+          <p data-lang="en" lang="en">Nawiri Pamoja e.V. was founded in Berlin in 2026 and is recognized as a non-profit. The association creates secure structures for everyone involved: its own accounts, transparent processes, and clear rules. Our purpose is promoting education and development cooperation.</p>
 
-          <h3 style="margin-top:28px;" data-lang="de">Wie wir arbeiten</h3>
-          <h3 style="margin-top:28px;" data-lang="en">How we work</h3>
+          <h3 style="margin-top:28px;" data-lang="de" lang="de">Wie wir arbeiten</h3>
+          <h3 style="margin-top:28px;" data-lang="en" lang="en">How we work</h3>
           <ul class="plain-list">
-            <li data-lang="de"><b>Die Gemeinschaft bestimmt mit.</b> Was ein Kind oder die Gemeinschaft braucht, wissen die Menschen vor Ort am besten.</li>
-            <li data-lang="de"><b>Saubere Strukturen auf beiden Seiten.</b> Satzungen, ein Memorandum of Understanding und regelmäßige Berichte.</li>
-            <li data-lang="de"><b>Alle sind das Team.</b> Gemeinsam produzieren wir auch etwas, beispielsweise Karten oder Bilder, die wir mit den Kindern gestalten.</li>
-            <li data-lang="en"><b>The community has a say.</b> The people on the ground know best what a child or the community needs.</li>
-            <li data-lang="en"><b>Clean structures on both sides.</b> Statutes, a Memorandum of Understanding and regular reports.</li>
-            <li data-lang="en"><b>Everyone is part of the team.</b> Together we also produce things, for example cards or pictures that we design with the children.</li>
+            <li data-lang="de" lang="de"><b>Die Gemeinschaft bestimmt mit.</b> Was ein Kind oder die Gemeinschaft braucht, wissen die Menschen vor Ort am besten.</li>
+            <li data-lang="de" lang="de"><b>Saubere Strukturen auf beiden Seiten.</b> Satzungen, ein Memorandum of Understanding und regelmäßige Berichte.</li>
+            <li data-lang="de" lang="de"><b>Alle sind das Team.</b> Gemeinsam produzieren wir auch etwas, beispielsweise Karten oder Bilder, die wir mit den Kindern gestalten.</li>
+            <li data-lang="en" lang="en"><b>The community has a say.</b> The people on the ground know best what a child or the community needs.</li>
+            <li data-lang="en" lang="en"><b>Clean structures on both sides.</b> Statutes, a Memorandum of Understanding and regular reports.</li>
+            <li data-lang="en" lang="en"><b>Everyone is part of the team.</b> Together we also produce things, for example cards or pictures that we design with the children.</li>
           </ul>
         </div>
       </div>
@@ -477,31 +504,31 @@
   <section id="work">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Was wir tun</div>
-        <div class="eyebrow" data-lang="en">What we do</div>
-        <h2 data-lang="de">Wo wir stehen – und wohin wir wollen.</h2>
-        <h2 data-lang="en">Where we are – and where we're headed.</h2>
-        <p data-lang="de">Wir sind erst vor wenigen Monaten gestartet. Deshalb sagen wir klar, was schon läuft, was wir gerade aufbauen und was noch Ziele sind.</p>
-        <p data-lang="en">We only started a few months ago. That's why we are clear about what is already happening, what we are building right now, and what is still a goal.</p>
+        <div class="eyebrow" data-lang="de" lang="de">Was wir tun</div>
+        <div class="eyebrow" data-lang="en" lang="en">What we do</div>
+        <h2 data-lang="de" lang="de">Wo wir stehen – und wohin wir wollen.</h2>
+        <h2 data-lang="en" lang="en">Where we are – and where we're headed.</h2>
+        <p data-lang="de" lang="de">Wir sind erst vor wenigen Monaten gestartet. Deshalb sagen wir klar, was schon läuft, was wir gerade aufbauen und was noch Ziele sind.</p>
+        <p data-lang="en" lang="en">We only started a few months ago. That's why we are clear about what is already happening, what we are building right now, and what is still a goal.</p>
       </div>
       <div class="work-grid">
         <div class="work-card">
-          <span class="tag now" data-lang="de">Läuft bereits</span><span class="tag now" data-lang="en">Already happening</span>
-          <h3 data-lang="de">Schule ohne Paywall.</h3><h3 data-lang="en">School without a paywall.</h3>
-          <p data-lang="de">Drei Kinder aus der Gemeinschaft sind schon voll in unserem Team, wir übernehmen ihre Schulkosten. Bei weiteren Kindern sind wir eingesprungen, wo es mit den Gebühren gehakt hat. Jetzt sehen Mama und unser Team genau hin, wer was braucht – Schuhe, eine heile Uniform, Material oder mehr – und nehmen nach und nach weitere Kinder ganz auf: „mpaka yote iwe sawa“, bis alles gut ist.</p>
-          <p data-lang="en">Three children from the community are already fully part of our team, and we cover their school costs. For other children we stepped in where the fees were stuck. Now Mama and our team look closely at who needs what – shoes, an intact uniform, materials or more – and take in more children fully, bit by bit: “mpaka yote iwe sawa”, until everything is right.</p>
+          <span class="tag now" data-lang="de" lang="de">Läuft bereits</span><span class="tag now" data-lang="en" lang="en">Already happening</span>
+          <h3 data-lang="de" lang="de">Schule ohne Paywall.</h3><h3 data-lang="en" lang="en">School without a paywall.</h3>
+          <p data-lang="de" lang="de">Drei Kinder aus der Gemeinschaft sind schon voll in unserem Team, wir übernehmen ihre Schulkosten. Bei weiteren Kindern sind wir eingesprungen, wo es mit den Gebühren gehakt hat. Jetzt sehen Mama und unser Team genau hin, wer was braucht – Schuhe, eine heile Uniform, Material oder mehr – und nehmen nach und nach weitere Kinder ganz auf: „<span lang="sw">mpaka yote iwe sawa</span>“, bis alles gut ist.</p>
+          <p data-lang="en" lang="en">Three children from the community are already fully part of our team, and we cover their school costs. For other children we stepped in where the fees were stuck. Now Mama and our team look closely at who needs what – shoes, an intact uniform, materials or more – and take in more children fully, bit by bit: “<span lang="sw">mpaka yote iwe sawa</span>”, until everything is right.</p>
         </div>
         <div class="work-card">
-          <span class="tag now" data-lang="de">Gestartet</span><span class="tag now" data-lang="en">Started</span>
-          <h3 data-lang="de">Kind sein und gewinnen.</h3><h3 data-lang="en">Being a kid, and winning.</h3>
-          <p data-lang="de">Sport und Spiel sind mehr als Zeitvertreib. Sie bringen Kinder und Jugendliche zusammen und zum Lachen. Die Fuß- und Netzbälle, die Cathy bereitgestellt hat, sind schon viel im Einsatz. Als Nächstes möchten wir Teams starten, mit Trikots ausstatten und kleine Turniere veranstalten. Ebenso regelmäßige kleine Marathon-Events. Etwas zu gewinnen bedeutet vielen ein Leben lang etwas.</p>
-          <p data-lang="en">Sport and play are more than a pastime. They bring children and young people together and make them laugh. The footballs and netballs Cathy provided are already getting a lot of use. Next, we want to start teams, equip them with jerseys and hold small tournaments, plus regular small marathon events. Winning something means a lot to people, for life.</p>
+          <span class="tag now" data-lang="de" lang="de">Gestartet</span><span class="tag now" data-lang="en" lang="en">Started</span>
+          <h3 data-lang="de" lang="de">Kind sein und gewinnen.</h3><h3 data-lang="en" lang="en">Being a kid, and winning.</h3>
+          <p data-lang="de" lang="de">Sport und Spiel sind mehr als Zeitvertreib. Sie bringen Kinder und Jugendliche zusammen und zum Lachen. Die Fuß- und Netzbälle, die Cathy bereitgestellt hat, sind schon viel im Einsatz. Als Nächstes möchten wir Teams starten, mit Trikots ausstatten und kleine Turniere veranstalten. Ebenso regelmäßige kleine Marathon-Events. Etwas zu gewinnen bedeutet vielen ein Leben lang etwas.</p>
+          <p data-lang="en" lang="en">Sport and play are more than a pastime. They bring children and young people together and make them laugh. The footballs and netballs Cathy provided are already getting a lot of use. Next, we want to start teams, equip them with jerseys and hold small tournaments, plus regular small marathon events. Winning something means a lot to people, for life.</p>
         </div>
         <div class="work-card">
-          <span class="tag now" data-lang="de">Gestartet</span><span class="tag now" data-lang="en">Started</span>
-          <h3 data-lang="de">Eine Gemeinschaft, in der wir wachsen.</h3><h3 data-lang="en">A community we grow in.</h3>
-          <p data-lang="de">Die ersten Workshops haben stattgefunden. Menschen vor Ort geben ihr eigenes Wissen weiter, zum Beispiel Mama Maria, die viele Fähigkeiten zu teilen hat und die Community stützt. Einen Community-LifeStraw für sicheres Wasser haben wir schon installiert: ein erster Schritt, der zeigt, wie wir die ganze Gemeinschaft stärken. Dazu haben wir Malsachen und Spielzeug bereitgestellt. Alles, was die Kindheit schöner und sicherer macht.</p>
-          <p data-lang="en">The first workshops have taken place. People on the ground pass on their own knowledge — for example Mama Mary, who has many skills to share and supports the community. We have already installed a community LifeStraw for safe water: a first step that shows how we strengthen the whole community. We have also provided art supplies and toys: everything that makes childhood brighter and safer.</p>
+          <span class="tag now" data-lang="de" lang="de">Gestartet</span><span class="tag now" data-lang="en" lang="en">Started</span>
+          <h3 data-lang="de" lang="de">Eine Gemeinschaft, in der wir wachsen.</h3><h3 data-lang="en" lang="en">A community we grow in.</h3>
+          <p data-lang="de" lang="de">Die ersten Workshops haben stattgefunden. Menschen vor Ort geben ihr eigenes Wissen weiter, zum Beispiel Mama Maria, die viele Fähigkeiten zu teilen hat und die Community stützt. Einen Community-LifeStraw für sicheres Wasser haben wir schon installiert: ein erster Schritt, der zeigt, wie wir die ganze Gemeinschaft stärken. Dazu haben wir Malsachen und Spielzeug bereitgestellt. Alles, was die Kindheit schöner und sicherer macht.</p>
+          <p data-lang="en" lang="en">The first workshops have taken place. People on the ground pass on their own knowledge — for example Mama Mary, who has many skills to share and supports the community. We have already installed a community LifeStraw for safe water: a first step that shows how we strengthen the whole community. We have also provided art supplies and toys: everything that makes childhood brighter and safer.</p>
         </div>
       </div>
 
@@ -510,26 +537,26 @@
           <img src="assets/school_class.jpg" loading="lazy" alt="Eine große Gruppe kleiner Kinder in roten Schuluniformen und Trikots steht auf sandigem Boden vor einem Lehmziegelgebäude mit bunt bemalter Wand und den Vokalen a, e, i, o, u, dahinter eine Frau und ein Mann" data-alt-en="A large group of small children in red school uniforms and jerseys standing on sandy ground in front of a mud-brick building with a colourfully painted wall showing the vowels a, e, i, o, u, with a woman and a man behind them">
         </figure>
         <div class="school-text">
-          <span class="tag next" data-lang="de">Als Nächstes</span><span class="tag next" data-lang="en">Next up</span>
-          <h3 data-lang="de">Schulen und Lernräume selbst verbessern.</h3><h3 data-lang="en">Fixing up the schools and classrooms themselves.</h3>
-          <p data-lang="de">Kinder lernen besser in einem Raum, der heil und sicher ist. Deshalb wollen wir auch an den Schulen selbst anpacken.</p>
-          <p data-lang="de">Das erste Projekt ist dieser Klassenraum der Kleinsten: Er fällt fast auseinander und muss dringend renoviert werden.</p>
-          <p data-lang="en">Children learn better in a room that is intact and safe. That's why we want to get hands-on at the schools themselves.</p>
-          <p data-lang="en">The first project is this classroom for the youngest children. It is almost falling apart and urgently needs renovation.</p>
+          <span class="tag next" data-lang="de" lang="de">Als Nächstes</span><span class="tag next" data-lang="en" lang="en">Next up</span>
+          <h3 data-lang="de" lang="de">Schulen und Lernräume selbst verbessern.</h3><h3 data-lang="en" lang="en">Fixing up the schools and classrooms themselves.</h3>
+          <p data-lang="de" lang="de">Kinder lernen besser in einem Raum, der heil und sicher ist. Deshalb wollen wir auch an den Schulen selbst anpacken.</p>
+          <p data-lang="de" lang="de">Das erste Projekt ist dieser Klassenraum der Kleinsten: Er fällt fast auseinander und muss dringend renoviert werden.</p>
+          <p data-lang="en" lang="en">Children learn better in a room that is intact and safe. That's why we want to get hands-on at the schools themselves.</p>
+          <p data-lang="en" lang="en">The first project is this classroom for the youngest children. It is almost falling apart and urgently needs renovation.</p>
         </div>
       </div>
 
       <div class="roadmap">
-        <span class="tag next" data-lang="de">Unsere Ziele</span><span class="tag next" data-lang="en">Our goals</span>
-        <h3 data-lang="de">Was langfristig daraus wachsen soll</h3><h3 data-lang="en">What we want to grow over time</h3>
-        <p data-lang="de">Das sind große Ziele. Sie bauen aufeinander auf und brauchen Zeit. Wir nennen sie offen, damit ihr seht, wohin die Reise gehen soll.</p>
-        <p data-lang="en">These are big goals. They build on each other and take time. We state them openly, so you can see where we want to go.</p>
+        <span class="tag next" data-lang="de" lang="de">Unsere Ziele</span><span class="tag next" data-lang="en" lang="en">Our goals</span>
+        <h3 data-lang="de" lang="de">Was langfristig daraus wachsen soll</h3><h3 data-lang="en" lang="en">What we want to grow over time</h3>
+        <p data-lang="de" lang="de">Das sind große Ziele. Sie bauen aufeinander auf und brauchen Zeit. Wir nennen sie offen, damit ihr seht, wohin die Reise gehen soll.</p>
+        <p data-lang="en" lang="en">These are big goals. They build on each other and take time. We state them openly, so you can see where we want to go.</p>
         <div class="road-row">
-          <div class="road-step"><b data-lang="de">Solarstation</b><b data-lang="en">Solar station</b><span data-lang="de">Verlässlicher Strom für das Dorf: Energie für die Gemeinschaft und für spätere Ausbauten. Vielleicht irgendwann auch Ladestation für ein eigenes E-Tuktuk als Schulbus.</span><span data-lang="en">Reliable power for the village: energy for the community and for later expansion. Perhaps one day also a charging station for our own e-tuktuk as a school bus.</span></div>
-          <div class="road-arrow">→</div>
-          <div class="road-step"><b data-lang="de">Cyber</b><b data-lang="en">Cyber</b><span data-lang="de">Ein Internetcafé, in dem Kids Zugang zu Wissen haben und sich selbstständig Fähigkeiten aneignen können. Gleichzeitig kann es allen besseren Zugang zu Informationen und offenes Wi-Fi bieten.</span><span data-lang="en">An internet café where kids can access knowledge and teach themselves skills. At the same time, it can offer everyone better access to information and open Wi-Fi.</span></div>
-          <div class="road-arrow">→</div>
-          <div class="road-step"><b data-lang="de">Jugendzentrum</b><b data-lang="en">Youth centre</b><span data-lang="de">Ein sicherer Treffpunkt zum Lernen und Zusammenkommen, zum Musikmachen und Lautsein, zum Spielen und Organisieren. Eine spätere Ausbaustufe, in die das Cyber aufgehen kann.</span><span data-lang="en">A safe meeting place to learn and come together, to make music and be loud, to play and organise. A later stage that the cyber can grow into.</span></div>
+          <div class="road-step"><b data-lang="de" lang="de">Solarstation</b><b data-lang="en" lang="en">Solar station</b><span data-lang="de" lang="de">Verlässlicher Strom für das Dorf: Energie für die Gemeinschaft und für spätere Ausbauten. Vielleicht irgendwann auch Ladestation für ein eigenes E-Tuktuk als Schulbus.</span><span data-lang="en" lang="en">Reliable power for the village: energy for the community and for later expansion. Perhaps one day also a charging station for our own e-tuktuk as a school bus.</span></div>
+          <div class="road-arrow" aria-hidden="true">→</div>
+          <div class="road-step"><b data-lang="de" lang="de">Cyber</b><b data-lang="en" lang="en">Cyber</b><span data-lang="de" lang="de">Ein Internetcafé, in dem Kids Zugang zu Wissen haben und sich selbstständig Fähigkeiten aneignen können. Gleichzeitig kann es allen besseren Zugang zu Informationen und offenes Wi-Fi bieten.</span><span data-lang="en" lang="en">An internet café where kids can access knowledge and teach themselves skills. At the same time, it can offer everyone better access to information and open Wi-Fi.</span></div>
+          <div class="road-arrow" aria-hidden="true">→</div>
+          <div class="road-step"><b data-lang="de" lang="de">Jugendzentrum</b><b data-lang="en" lang="en">Youth centre</b><span data-lang="de" lang="de">Ein sicherer Treffpunkt zum Lernen und Zusammenkommen, zum Musikmachen und Lautsein, zum Spielen und Organisieren. Eine spätere Ausbaustufe, in die das Cyber aufgehen kann.</span><span data-lang="en" lang="en">A safe meeting place to learn and come together, to make music and be loud, to play and organise. A later stage that the cyber can grow into.</span></div>
         </div>
       </div>
     </div>
@@ -540,19 +567,19 @@
     <div class="wrap">
       <div class="cbo-logo-card"><img src="assets/dongruok-logo.svg" alt="Dongruok Kanyakla"></div>
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Unser Partner vor Ort</div>
-        <div class="eyebrow" data-lang="en">Our partner on the ground</div>
+        <div class="eyebrow" data-lang="de" lang="de">Unser Partner vor Ort</div>
+        <div class="eyebrow" data-lang="en" lang="en">Our partner on the ground</div>
         <h2>Dongruok Kanyakla, Siaya County</h2>
       </div>
       <div class="cbo-intro-grid">
-      <p class="cbo-intro tight" data-lang="de">Dongruok Kanyakla ist unsere Partnerorganisation vor Ort. Wir haben sie zusammen mit der Community in Boro, Siaya County, der Heimat von Cathys Familie, gegründet. Rechtlich ist sie eine eigenständige, in Kenia registrierte Community Based Organization mit eigener Satzung und eigenem Konto. Ein Memorandum of Understanding regelt die Partnerschaft: Dongruok legt mindestens vierteljährlich einen Finanzbericht vor und lässt seine Bücher jährlich prüfen. Was mit den Mitteln unserer Organisation angeschafft wird, gehört der CBO und keiner einzelnen Person.</p>
-      <p class="cbo-intro" data-lang="de">Die Familien leben als Selbstversorger von der Landwirtschaft. Sie kennen ihr Land, ihre Kinder und ihre Nachbarn, sie wissen und verstehen, was gebraucht wird, und sie stemmen die eigentliche Arbeit vor Ort. Bei uns gibt es keinen Umweg und keinen Overhead: Wir arbeiten nicht neben der Gemeinschaft, sondern mittendrin, miteinander und füreinander. Unsere beiden Organisationen wachsen mit den Kindern. Geführt wird Dongruok von einem gewählten Komitee.</p>
-      <p class="cbo-intro tight" data-lang="en">Dongruok Kanyakla is our partner organization on the ground. We founded it together with the community in Boro, Siaya County, the home of Cathy's family. Legally it is an independent community based organization registered in Kenya, with its own constitution and its own bank account. A Memorandum of Understanding governs the partnership: Dongruok submits a financial report at least quarterly and has its books audited every year. Whatever is acquired with our organization's funds belongs to the CBO, not to any individual.</p>
-      <p class="cbo-intro" data-lang="en">The families live as subsistence farmers. They know their land, their children and their neighbors, they know and understand what is needed, and they do the real work on the ground. With us there is no detour and no overhead: we don't work alongside the community but in the middle of it, with each other and for each other. Our two organizations grow with the children. Dongruok is run by an elected committee.</p>
+      <p class="cbo-intro tight" data-lang="de" lang="de">Dongruok Kanyakla ist unsere Partnerorganisation vor Ort. Wir haben sie zusammen mit der Community in Boro, Siaya County, der Heimat von Cathys Familie, gegründet. Rechtlich ist sie eine eigenständige, in Kenia registrierte Community Based Organization mit eigener Satzung und eigenem Konto. Ein Memorandum of Understanding regelt die Partnerschaft: Dongruok legt mindestens vierteljährlich einen Finanzbericht vor und lässt seine Bücher jährlich prüfen. Was mit den Mitteln unserer Organisation angeschafft wird, gehört der CBO und keiner einzelnen Person.</p>
+      <p class="cbo-intro" data-lang="de" lang="de">Die Familien leben als Selbstversorger von der Landwirtschaft. Sie kennen ihr Land, ihre Kinder und ihre Nachbarn, sie wissen und verstehen, was gebraucht wird, und sie stemmen die eigentliche Arbeit vor Ort. Bei uns gibt es keinen Umweg und keinen Overhead: Wir arbeiten nicht neben der Gemeinschaft, sondern mittendrin, miteinander und füreinander. Unsere beiden Organisationen wachsen mit den Kindern. Geführt wird Dongruok von einem gewählten Komitee.</p>
+      <p class="cbo-intro tight" data-lang="en" lang="en">Dongruok Kanyakla is our partner organization on the ground. We founded it together with the community in Boro, Siaya County, the home of Cathy's family. Legally it is an independent community based organization registered in Kenya, with its own constitution and its own bank account. A Memorandum of Understanding governs the partnership: Dongruok submits a financial report at least quarterly and has its books audited every year. Whatever is acquired with our organization's funds belongs to the CBO, not to any individual.</p>
+      <p class="cbo-intro" data-lang="en" lang="en">The families live as subsistence farmers. They know their land, their children and their neighbors, they know and understand what is needed, and they do the real work on the ground. With us there is no detour and no overhead: we don't work alongside the community but in the middle of it, with each other and for each other. Our two organizations grow with the children. Dongruok is run by an elected committee.</p>
       </div>
 
-      <h3 class="team-title" data-lang="de">Das Komitee</h3>
-      <h3 class="team-title" data-lang="en">The committee</h3>
+      <h3 class="team-title" data-lang="de" lang="de">Das Komitee</h3>
+      <h3 class="team-title" data-lang="en" lang="en">The committee</h3>
 
       <!--
         FOTOS: Dateien in assets/team/ legen (Hochformat 4:5, Gesicht im oberen Drittel, ca. 800 px breit, unter 150 KB).
@@ -564,34 +591,34 @@
         <div class="member">
           <div class="member-photo"><img src="assets/team/cathy.jpg" loading="lazy" alt="Cathy, Vorsitzende von Dongruok Kanyakla" data-alt-en="Cathy, chairperson of Dongruok Kanyakla"></div>
           <h3>Cathy</h3>
-          <div class="role" data-lang="de">Vorsitzende</div><div class="role" data-lang="en">Chairperson</div>
-          <div class="job" data-lang="de">Gründerin &amp; CEO, Tawari Digital Ltd.</div><div class="job" data-lang="en">Founder &amp; CEO, Tawari Digital Ltd.</div>
-          <p data-lang="de">Cathy lebt in Nairobi, wo sie ihre eigene Tech-Firma aufgebaut hat und leitet. Sie ist in unserer Community verwurzelt. Ihr Technikwissen gibt sie in Trainings mit Theorie und Praxis weiter, damit junge Menschen als Techniker arbeiten können. Cathy ist das Verbindungsglied zwischen der Gemeinschaft vor Ort und uns.</p>
-          <p data-lang="en">Cathy lives in Nairobi, where she built up and runs her own tech company. She is rooted in our community. She passes on her technical knowledge in trainings with theory and hands-on practice, so that young people can work as technicians. Cathy is the link between the community on the ground and us.</p>
+          <div class="role" data-lang="de" lang="de">Vorsitzende</div><div class="role" data-lang="en" lang="en">Chairperson</div>
+          <div class="job" data-lang="de" lang="de">Gründerin &amp; CEO, Tawari Digital Ltd.</div><div class="job" data-lang="en" lang="en">Founder &amp; CEO, Tawari Digital Ltd.</div>
+          <p data-lang="de" lang="de">Cathy lebt in Nairobi, wo sie ihre eigene Tech-Firma aufgebaut hat und leitet. Sie ist in unserer Community verwurzelt. Ihr Technikwissen gibt sie in Trainings mit Theorie und Praxis weiter, damit junge Menschen als Techniker arbeiten können. Cathy ist das Verbindungsglied zwischen der Gemeinschaft vor Ort und uns.</p>
+          <p data-lang="en" lang="en">Cathy lives in Nairobi, where she built up and runs her own tech company. She is rooted in our community. She passes on her technical knowledge in trainings with theory and hands-on practice, so that young people can work as technicians. Cathy is the link between the community on the ground and us.</p>
         </div>
         <div class="member">
           <div class="member-photo"><img src="assets/team/chrispin.jpg" loading="lazy" alt="Chrispin, stellvertretender Vorsitzender von Dongruok Kanyakla" data-alt-en="Chrispin, vice chairperson of Dongruok Kanyakla"></div>
           <h3>Chrispin</h3>
-          <div class="role" data-lang="de">Stellvertretender Vorsitzender</div><div class="role" data-lang="en">Vice Chairperson</div>
-          <div class="job" data-lang="de">Paralegal von Siaya</div><div class="job" data-lang="en">Paralegal of Siaya</div>
-          <p data-lang="de">Chrispin ist Rechtswissenschaftler und arbeitet als Paralegal, also als rechtskundiger Ansprechpartner mitten in der Gemeinschaft. Er berät und unterstützt Menschen in rechtlichen Fragen, vermittelt bei Konflikten, begleitet bei Behördengängen und packt bei der Gemeinschaftsarbeit mit an.</p>
-          <p data-lang="en">Chrispin is a legal scholar and works as a paralegal, a legally trained point of contact right in the community. He advises and supports people with legal questions, mediates in conflicts, helps them deal with authorities and pitches in on community work.</p>
+          <div class="role" data-lang="de" lang="de">Stellvertretender Vorsitzender</div><div class="role" data-lang="en" lang="en">Vice Chairperson</div>
+          <div class="job" data-lang="de" lang="de">Paralegal von Siaya</div><div class="job" data-lang="en" lang="en">Paralegal of Siaya</div>
+          <p data-lang="de" lang="de">Chrispin ist Rechtswissenschaftler und arbeitet als Paralegal, also als rechtskundiger Ansprechpartner mitten in der Gemeinschaft. Er berät und unterstützt Menschen in rechtlichen Fragen, vermittelt bei Konflikten, begleitet bei Behördengängen und packt bei der Gemeinschaftsarbeit mit an.</p>
+          <p data-lang="en" lang="en">Chrispin is a legal scholar and works as a paralegal, a legally trained point of contact right in the community. He advises and supports people with legal questions, mediates in conflicts, helps them deal with authorities and pitches in on community work.</p>
         </div>
         <div class="member">
           <div class="member-photo"><img src="assets/team/mama-maria.jpg" loading="lazy" alt="Mama Maria, Kassenwartin von Dongruok Kanyakla" data-alt-en="Mama Mary, treasurer of Dongruok Kanyakla"></div>
-          <h3 data-lang="de">Maria</h3><h3 data-lang="en">Mary</h3>
-          <div class="role" data-lang="de">Kassenwartin</div><div class="role" data-lang="en">Treasurer</div>
-          <div class="job" data-lang="de">Mama</div><div class="job" data-lang="en">Mama</div>
-          <p data-lang="de">Seit Cathy denken kann, ist Mamas Haus voller Kinder, nicht nur ihrer eigenen. Sie zieht sie mit groß und bringt ihnen Fertigkeiten bei. Eine Zeit lang war sie regionale Vorsitzende von „Maendeleo ya Wanawake“, der ältesten und größten Frauenrechtsorganisation Kenias. Weit und breit wird sie von allen nur „Mama“ genannt.</p>
-          <p data-lang="en">For as long as Cathy can remember, Mama’s house has been full of children, not only her own. She helps raise them and teaches them skills. For a time she was regional chair of “Maendeleo ya Wanawake”, Kenya’s oldest and largest women’s rights organization. Far and wide, everyone simply calls her “Mama”.</p>
+          <h3 data-lang="de" lang="de">Maria</h3><h3 data-lang="en" lang="en">Mary</h3>
+          <div class="role" data-lang="de" lang="de">Kassenwartin</div><div class="role" data-lang="en" lang="en">Treasurer</div>
+          <div class="job" data-lang="de" lang="de">Mama</div><div class="job" data-lang="en" lang="en">Mama</div>
+          <p data-lang="de" lang="de">Seit Cathy denken kann, ist Mamas Haus voller Kinder, nicht nur ihrer eigenen. Sie zieht sie mit groß und bringt ihnen Fertigkeiten bei. Eine Zeit lang war sie regionale Vorsitzende von „<span lang="sw">Maendeleo ya Wanawake</span>“, der ältesten und größten Frauenrechtsorganisation Kenias. Weit und breit wird sie von allen nur „Mama“ genannt.</p>
+          <p data-lang="en" lang="en">For as long as Cathy can remember, Mama’s house has been full of children, not only her own. She helps raise them and teaches them skills. For a time she was regional chair of “<span lang="sw">Maendeleo ya Wanawake</span>”, Kenya’s oldest and largest women’s rights organization. Far and wide, everyone simply calls her “Mama”.</p>
         </div>
         <div class="member">
           <div class="member-photo ph"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="36" r="18"/><path d="M14 92c0-22 16-34 36-34s36 12 36 34z"/></svg></div>
           <h3>Charles</h3>
-          <div class="role" data-lang="de">Schriftführer</div><div class="role" data-lang="en">Secretary</div>
-          <div class="job" data-lang="de">Lehrer der Kinder</div><div class="job" data-lang="en">Teacher of the children</div>
-          <p data-lang="de">Charles unterrichtet an der Schule, die einige unserer Kinder besuchen. Er erlebt im Klassenzimmer, was Kinder brauchen und wo es hakt, und bringt diesen Blick ins Komitee.</p>
-          <p data-lang="en">Charles teaches at the school that some of our children attend. In the classroom he sees what children need and where things get stuck, and brings that view to the committee.</p>
+          <div class="role" data-lang="de" lang="de">Schriftführer</div><div class="role" data-lang="en" lang="en">Secretary</div>
+          <div class="job" data-lang="de" lang="de">Lehrer der Kinder</div><div class="job" data-lang="en" lang="en">Teacher of the children</div>
+          <p data-lang="de" lang="de">Charles unterrichtet an der Schule, die einige unserer Kinder besuchen. Er erlebt im Klassenzimmer, was Kinder brauchen und wo es hakt, und bringt diesen Blick ins Komitee.</p>
+          <p data-lang="en" lang="en">Charles teaches at the school that some of our children attend. In the classroom he sees what children need and where things get stuck, and brings that view to the committee.</p>
         </div>
       </div>
     </div>
@@ -601,12 +628,12 @@
   <section id="gallery">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Einblicke</div>
-        <div class="eyebrow" data-lang="en">Glimpses</div>
-        <h2 data-lang="de">Galerie</h2>
-        <h2 data-lang="en">Gallery</h2>
-        <p data-lang="de">Einblicke in unsere Arbeit vor Ort.</p>
-        <p data-lang="en">Glimpses of our work on the ground.</p>
+        <div class="eyebrow" data-lang="de" lang="de">Einblicke</div>
+        <div class="eyebrow" data-lang="en" lang="en">Glimpses</div>
+        <h2 data-lang="de" lang="de">Galerie</h2>
+        <h2 data-lang="en" lang="en">Gallery</h2>
+        <p data-lang="de" lang="de">Einblicke in unsere Arbeit vor Ort.</p>
+        <p data-lang="en" lang="en">Glimpses of our work on the ground.</p>
       </div>
       <!--
         NEUES FOTO HINZUFÜGEN:
@@ -619,70 +646,70 @@
 
         <figure>
           <img src="assets/gallery/thumbs/DATEINAME.jpg" data-full="assets/gallery/DATEINAME.jpg" loading="lazy" alt="Beschreibung des Bildes" data-alt-en="Image description">
-          <figcaption data-lang="de">Deutscher Text</figcaption>
-          <figcaption data-lang="en">English text</figcaption>
+          <figcaption data-lang="de" lang="de">Deutscher Text</figcaption>
+          <figcaption data-lang="en" lang="en">English text</figcaption>
         </figure>
       -->
       <div class="gallery-grid">
         <figure>
           <img src="assets/gallery/thumbs/workshop.jpg" data-full="assets/gallery/workshop.jpg" loading="lazy" alt="Kinder malen und basteln gemeinsam an einem Tisch unter freiem Himmel" data-alt-en="Children drawing and crafting together at a table in the open air">
-          <figcaption data-lang="de">Mal-Workshop</figcaption>
-          <figcaption data-lang="en">Drawing workshop</figcaption>
+          <figcaption data-lang="de" lang="de">Mal-Workshop</figcaption>
+          <figcaption data-lang="en" lang="en">Drawing workshop</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/wasserfilter.jpg" data-full="assets/gallery/wasserfilter.jpg" loading="lazy" alt="Ein Kind füllt Wasser aus einem Wasserfilter in eine Flasche" data-alt-en="A child filling a bottle with water from a water filter">
-          <figcaption data-lang="de">Sicheres Wasser</figcaption>
-          <figcaption data-lang="en">Safe water</figcaption>
+          <figcaption data-lang="de" lang="de">Sicheres Wasser</figcaption>
+          <figcaption data-lang="en" lang="en">Safe water</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/homies.jpg" data-full="assets/gallery/homies.jpg" loading="lazy" alt="Zwei Kinder posieren mit cooler Basecap von Philipp" data-alt-en="Two children posing with a cool cap from Philipp">
-          <figcaption data-lang="de">Unsere Homies</figcaption>
-          <figcaption data-lang="en">Our homies</figcaption>
+          <figcaption data-lang="de" lang="de">Unsere Homies</figcaption>
+          <figcaption data-lang="en" lang="en">Our homies</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/kids_on_the_rocks.jpg" data-full="assets/gallery/kids_on_the_rocks.jpg" loading="lazy" alt="Drei Kids auf einer Felsformation vor einer schönen, weitläufigen Landschaft" data-alt-en="Three kids on a rock formation in front of a beautiful, expansive landscape">
-          <figcaption data-lang="de">Kids auf Felsformation in Siaya</figcaption>
-          <figcaption data-lang="en">Kids on a rock formation in Siaya</figcaption>
+          <figcaption data-lang="de" lang="de">Kids auf Felsformation in Siaya</figcaption>
+          <figcaption data-lang="en" lang="en">Kids on a rock formation in Siaya</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/mom_nawiri_kids.jpg" data-full="assets/gallery/mom_nawiri_kids.jpg" loading="lazy" alt="Mama Maria im orangefarbenen Kopftuch und Dolphine, die Mutter einiger der Kinder, stehen mit Kindern in lila Schuluniformen auf dem Schulhof, dahinter das Schulgebäude" data-alt-en="Mama Mary in an orange headscarf and Dolphine, the mother of some of the children, standing with children in purple school uniforms in the schoolyard, the school building behind them">
-          <figcaption data-lang="de">Mama Maria mit Nawiri-Kids am Education Day</figcaption>
-          <figcaption data-lang="en">Mama Mary with Nawiri kids on Education Day</figcaption>
+          <figcaption data-lang="de" lang="de">Mama Maria mit Nawiri-Kids am Education Day</figcaption>
+          <figcaption data-lang="en" lang="en">Mama Mary with Nawiri kids on Education Day</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/cathy_guiding.jpg" data-full="assets/gallery/cathy_guiding.jpg" loading="lazy" alt="Cathy zeigt mit ausgestrecktem Arm in die Ferne, neben ihr steht ein kleiner Junge auf einem Felsen im grünen Buschland" data-alt-en="Cathy points into the distance with her arm outstretched, a small boy standing beside her on a rock in the green bushland">
-          <figcaption data-lang="de">Cathy weist den Weg</figcaption>
-          <figcaption data-lang="en">Cathy guiding the way</figcaption>
+          <figcaption data-lang="de" lang="de">Cathy weist den Weg</figcaption>
+          <figcaption data-lang="en" lang="en">Cathy guiding the way</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/Analea.jpg" data-full="assets/gallery/Analea.jpg" loading="lazy" alt="Philipp lacht in die Kamera, neben ihm lacht die 95-jährige Analea in einem rot-gelb gemusterten Kleid und grauem Kopftuch" data-alt-en="Philipp smiling at the camera next to 95-year-old Analea, who is laughing in a red and yellow patterned dress and a grey headscarf">
-          <figcaption data-lang="de">Analea, 95 Jahre jung, mit Philipp</figcaption>
-          <figcaption data-lang="en">Analea, 95 years young, with Philipp</figcaption>
+          <figcaption data-lang="de" lang="de">Analea, 95 Jahre jung, mit Philipp</figcaption>
+          <figcaption data-lang="en" lang="en">Analea, 95 years young, with Philipp</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/fussball.jpg" data-full="assets/gallery/fussball.jpg" loading="lazy" alt="Kids und Erwachsene spielen gemeinsam Fußball in der Community" data-alt-en="Kids and adults playing football together in the community">
-          <figcaption data-lang="de">Fußball spielen</figcaption>
-          <figcaption data-lang="en">Playing football</figcaption>
+          <figcaption data-lang="de" lang="de">Fußball spielen</figcaption>
+          <figcaption data-lang="en" lang="en">Playing football</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/business.jpg" data-full="assets/gallery/business.jpg" loading="lazy" alt="Cathy kauft von einem Mädchen ein paar selbstgemachte Mandazi" data-alt-en="Cathy buying a few homemade mandazi from a girl">
-          <figcaption data-lang="de">Cathy mit junger Mandazi-Geschäftsfrau</figcaption>
-          <figcaption data-lang="en">Cathy with a young mandazi entrepreneur</figcaption>
+          <figcaption data-lang="de" lang="de">Cathy mit junger Mandazi-Geschäftsfrau</figcaption>
+          <figcaption data-lang="en" lang="en">Cathy with a young mandazi entrepreneur</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/beet.jpg" data-full="assets/gallery/beet.jpg" loading="lazy" alt="Reihen junger Sukuma-Wiki-Pflanzen (ein Blattkohl) auf einem Gemeinschaftsbeet in roter Erde, im warmen Abendlicht, dahinter Bäume und ein Felsen" data-alt-en="Rows of young sukuma wiki plants (a leafy kale) on a community plot in red soil, in warm evening light, with trees and a boulder behind">
-          <figcaption data-lang="de">Unser Sukuma Wiki, frisch gepflanzt</figcaption>
-          <figcaption data-lang="en">Our sukuma wiki, freshly planted</figcaption>
+          <figcaption data-lang="de" lang="de">Unser <span lang="sw">Sukuma Wiki</span>, frisch gepflanzt</figcaption>
+          <figcaption data-lang="en" lang="en">Our <span lang="sw">sukuma wiki</span>, freshly planted</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/borehole_laundry.jpg" data-full="assets/gallery/borehole_laundry.jpg" loading="lazy" alt="Der Brunnen, aus dem mit Eimer und Seil Wasser gezogen wird; am Bildrand wäscht ein Mädchen Wäsche" data-alt-en="The well where water is drawn with a bucket and rope; at the edge of the picture a girl is washing laundry">
-          <figcaption data-lang="de">Wasserquelle Brunnen</figcaption>
-          <figcaption data-lang="en">Water source: the well</figcaption>
+          <figcaption data-lang="de" lang="de">Wasserquelle Brunnen</figcaption>
+          <figcaption data-lang="en" lang="en">Water source: the well</figcaption>
         </figure>
         <figure>
           <img src="assets/gallery/thumbs/hoola.jpg" data-full="assets/gallery/hoola.jpg" loading="lazy" alt="Ein Mädchen schwingt einen Hula-Hoop-Reifen, rechts sitzen Frauen unserer Community im Schatten eines Baumes" data-alt-en="A girl swinging a hula hoop, while women from our community sit in the shade of a tree on the right">
-          <figcaption data-lang="de">Frauen der Community</figcaption>
-          <figcaption data-lang="en">Women of the community</figcaption>
+          <figcaption data-lang="de" lang="de">Frauen der Community</figcaption>
+          <figcaption data-lang="en" lang="en">Women of the community</figcaption>
         </figure>
       </div>
     </div>
@@ -692,20 +719,20 @@
   <section id="donate">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Mitmachen</div>
-        <div class="eyebrow" data-lang="en">Get involved</div>
-        <h2 data-lang="de">Unterstützen</h2>
-        <h2 data-lang="en">Support us</h2>
+        <div class="eyebrow" data-lang="de" lang="de">Mitmachen</div>
+        <div class="eyebrow" data-lang="en" lang="en">Get involved</div>
+        <h2 data-lang="de" lang="de">Unterstützen</h2>
+        <h2 data-lang="en" lang="en">Support us</h2>
       </div>
       <div class="donate-box">
         <div class="left">
-          <h3 data-lang="de">Unser Spendenkonto wird gerade eingerichtet.</h3>
-          <h3 data-lang="en">Our donation account is currently being set up.</h3>
-          <p data-lang="de">Sobald das Vereinskonto steht, findest du hier die Kontodaten und Informationen zur Zuwendungsbestätigung. Bis dahin kannst du uns gerne direkt kontaktieren.</p>
-          <p data-lang="en">Once the association's bank account is active, you'll find the account details and information on donation receipts here. Until then, feel free to reach out to us directly.</p>
+          <h3 data-lang="de" lang="de">Unser Spendenkonto wird gerade eingerichtet.</h3>
+          <h3 data-lang="en" lang="en">Our donation account is currently being set up.</h3>
+          <p data-lang="de" lang="de">Sobald das Vereinskonto steht, findest du hier die Kontodaten und Informationen zur Zuwendungsbestätigung. Bis dahin kannst du uns gerne direkt kontaktieren.</p>
+          <p data-lang="en" lang="en">Once the association's bank account is active, you'll find the account details and information on donation receipts here. Until then, feel free to reach out to us directly.</p>
         </div>
-        <div class="badge" data-lang="de">Kommt bald</div>
-        <div class="badge" data-lang="en">Coming soon</div>
+        <div class="badge" data-lang="de" lang="de">Kommt bald</div>
+        <div class="badge" data-lang="en" lang="en">Coming soon</div>
       </div>
     </div>
   </section>
@@ -714,31 +741,31 @@
   <section id="contact">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow" data-lang="de">Kontakt</div>
-        <div class="eyebrow" data-lang="en">Contact</div>
-        <h2 data-lang="de">Sag Hallo.</h2>
-        <h2 data-lang="en">Say hello.</h2>
+        <div class="eyebrow" data-lang="de" lang="de">Kontakt</div>
+        <div class="eyebrow" data-lang="en" lang="en">Contact</div>
+        <h2 data-lang="de" lang="de">Sag Hallo.</h2>
+        <h2 data-lang="en" lang="en">Say hello.</h2>
       </div>
       <div class="contact-grid">
         <div>
-          <h3 data-lang="de">Kontakt</h3>
-          <h3 data-lang="en">Contact</h3>
-          <p data-lang="de" style="color:var(--ink-soft);max-width:40ch;">Fragen, Ideen oder einfach Hallo sagen – wir freuen uns.</p>
-          <p data-lang="en" style="color:var(--ink-soft);max-width:40ch;">Questions, ideas, or just want to say hello – we'd love to hear from you.</p>
+          <h3 data-lang="de" lang="de">Kontakt</h3>
+          <h3 data-lang="en" lang="en">Contact</h3>
+          <p data-lang="de" lang="de" style="color:var(--ink-soft);max-width:40ch;">Fragen, Ideen oder einfach Hallo sagen – wir freuen uns.</p>
+          <p data-lang="en" lang="en" style="color:var(--ink-soft);max-width:40ch;">Questions, ideas, or just want to say hello – we'd love to hear from you.</p>
           <a class="mail-link" href="mailto:info@nawiri-pamoja.org">info@nawiri-pamoja.org</a>
           <div>
-            <a class="social-link" href="https://bsky.app/profile/nawiri-pamoja.bsky.social" target="_blank" rel="noopener"><svg viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg><span data-lang="de">Folge uns auf Bluesky</span><span data-lang="en">Follow us on Bluesky</span></a>
+            <a class="social-link" href="https://bsky.app/profile/nawiri-pamoja.bsky.social" target="_blank" rel="noopener"><svg viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg><span data-lang="de" lang="de">Folge uns auf Bluesky</span><span data-lang="en" lang="en">Follow us on Bluesky</span></a>
           </div>
         </div>
         <div>
-          <h3 data-lang="de">Impressum</h3>
-          <h3 data-lang="en">Legal notice (Impressum)</h3>
+          <h3 data-lang="de" lang="de">Impressum</h3>
+          <h3 data-lang="en" lang="en">Legal notice (Impressum)</h3>
           <div class="impressum-list">
-            <div><span class="lbl" data-lang="de">Verein</span><span class="lbl" data-lang="en">Association</span><span>Nawiri Pamoja e.V.</span></div>
-            <div><span class="lbl" data-lang="de">Sitz</span><span class="lbl" data-lang="en">Registered seat</span><span>Berlin, Deutschland</span></div>
-            <div><span class="lbl" data-lang="de">Anschrift</span><span class="lbl" data-lang="en">Address</span><span>Tino-Schwirzina-Str. 30 D<br>13089 Berlin</span></div>
-            <div><span class="lbl" data-lang="de">Register</span><span class="lbl" data-lang="en">Register</span><span>Amtsgericht Charlottenburg, VR 42720 B</span></div>
-            <div><span class="lbl" data-lang="de">Vertreten durch</span><span class="lbl" data-lang="en">Represented by</span><span data-lang="de">Philipp Alexander Bischoff (1. Vorsitzender)</span><span data-lang="en">Philipp Alexander Bischoff (1st Chairperson)</span></div>
+            <div><span class="lbl" data-lang="de" lang="de">Verein</span><span class="lbl" data-lang="en" lang="en">Association</span><span>Nawiri Pamoja e.V.</span></div>
+            <div><span class="lbl" data-lang="de" lang="de">Sitz</span><span class="lbl" data-lang="en" lang="en">Registered seat</span><span>Berlin, Deutschland</span></div>
+            <div><span class="lbl" data-lang="de" lang="de">Anschrift</span><span class="lbl" data-lang="en" lang="en">Address</span><span>Tino-Schwirzina-Str. 30 D<br>13089 Berlin</span></div>
+            <div><span class="lbl" data-lang="de" lang="de">Register</span><span class="lbl" data-lang="en" lang="en">Register</span><span>Amtsgericht Charlottenburg, VR 42720 B</span></div>
+            <div><span class="lbl" data-lang="de" lang="de">Vertreten durch</span><span class="lbl" data-lang="en" lang="en">Represented by</span><span data-lang="de" lang="de">Philipp Alexander Bischoff (1. Vorsitzender)</span><span data-lang="en" lang="en">Philipp Alexander Bischoff (1st Chairperson)</span></div>
             <div><span class="lbl">E-Mail</span><span>info@nawiri-pamoja.org</span></div>
           </div>
         </div>
@@ -752,10 +779,15 @@
 
 <footer>
   <span>© 2026 Nawiri Pamoja e.V.</span>
-  <span> · </span><a href="datenschutz.html"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy policy</span></a>
+  <span> · </span><a href="datenschutz.html"><span data-lang="de" lang="de">Datenschutz</span><span data-lang="en" lang="en">Privacy policy</span></a>
 </footer>
 
-<div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button type="button" class="lb-btn lb-close">×</button>
+  <button type="button" class="lb-btn lb-prev">‹</button>
+  <figure class="lb-fig"><img alt=""><figcaption class="lb-cap"></figcaption></figure>
+  <button type="button" class="lb-btn lb-next">›</button>
+</div>
 
 <script>
   const html = document.documentElement;
@@ -793,14 +825,69 @@
 </script>
 <script>
   (function(){
+    /* Galerie-Großansicht: per Maus, Tastatur (Enter/Leertaste, Pfeile, Esc) und Wischen bedienbar */
     var lb=document.getElementById('lightbox'); if(!lb) return;
-    var big=lb.querySelector('img');
-    document.querySelectorAll('.gallery-grid figure').forEach(function(f){
-      // Großansicht: volle Auflösung laden, falls vorhanden; sonst die Vorschau zeigen
-      f.addEventListener('click',function(){var i=f.querySelector('img');big.src=i.getAttribute('data-full')||i.src;big.alt=i.alt;lb.classList.add('open');});
+    var big=lb.querySelector('.lb-fig img'), cap=lb.querySelector('.lb-cap');
+    var bClose=lb.querySelector('.lb-close'), bPrev=lb.querySelector('.lb-prev'), bNext=lb.querySelector('.lb-next');
+    var figs=Array.prototype.slice.call(document.querySelectorAll('.gallery-grid figure'));
+    var idx=0, lastFocus=null;
+    var T={de:{dlg:'Bildergalerie',close:'Schließen',prev:'Vorheriges Bild',next:'Nächstes Bild',open:'Bild vergrößern: '},
+           en:{dlg:'Photo gallery',close:'Close',prev:'Previous photo',next:'Next photo',open:'Enlarge photo: '}};
+    function t(){return T[document.documentElement.getAttribute('lang')==='en'?'en':'de'];}
+    function visibleCaption(f){
+      var c=f.querySelectorAll('figcaption');
+      for(var k=0;k<c.length;k++){if(c[k].offsetParent!==null||getComputedStyle(c[k]).display!=='none')return c[k].textContent;}
+      return '';
+    }
+    function labelFigs(){figs.forEach(function(f){f.setAttribute('aria-label',t().open+(visibleCaption(f)||f.querySelector('img').alt));});}
+    function show(i){
+      idx=(i+figs.length)%figs.length;
+      var img=figs[idx].querySelector('img');
+      big.src=img.getAttribute('data-full')||img.src; big.alt=img.alt;
+      cap.textContent=visibleCaption(figs[idx]);
+    }
+    function open(i){
+      var l=t(); lastFocus=document.activeElement;
+      lb.setAttribute('aria-label',l.dlg);
+      bClose.setAttribute('aria-label',l.close); bPrev.setAttribute('aria-label',l.prev); bNext.setAttribute('aria-label',l.next);
+      bPrev.style.display=bNext.style.display=(figs.length>1?'':'none');
+      show(i); lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden'; bClose.focus();
+    }
+    function close(){
+      if(!lb.classList.contains('open')) return;
+      lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow=''; big.removeAttribute('src');
+      if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    }
+    figs.forEach(function(f,i){
+      f.setAttribute('tabindex','0'); f.setAttribute('role','button'); f.setAttribute('aria-haspopup','dialog');
+      f.addEventListener('click',function(){open(i);});
+      f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();open(i);}});
     });
-    lb.addEventListener('click',function(){lb.classList.remove('open');});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});
+    labelFigs();
+    document.querySelectorAll('[data-set-lang]').forEach(function(b){b.addEventListener('click',labelFigs);});
+    bClose.addEventListener('click',function(e){e.stopPropagation();close();});
+    bPrev.addEventListener('click',function(e){e.stopPropagation();show(idx-1);});
+    bNext.addEventListener('click',function(e){e.stopPropagation();show(idx+1);});
+    lb.addEventListener('click',close); // Klick auf Hintergrund oder Bild schließt
+    document.addEventListener('keydown',function(e){
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape'){close();}
+      else if(e.key==='ArrowLeft'){show(idx-1);}
+      else if(e.key==='ArrowRight'){show(idx+1);}
+      else if(e.key==='Tab'){ // Fokus im Dialog halten
+        var f=[bClose,bPrev,bNext].filter(function(b){return b.style.display!=='none';});
+        var k=f.indexOf(document.activeElement); e.preventDefault();
+        f[(k+(e.shiftKey?-1:1)+f.length)%f.length].focus();
+      }
+    });
+    var x0=null; // Wischen auf Touch-Geräten
+    lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+    lb.addEventListener('touchend',function(e){
+      if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null;
+      if(Math.abs(dx)>50){show(idx+(dx<0?1:-1)); e.preventDefault();}
+    });
   })();
 </script>
 <script>
