@@ -4,7 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nawiri Pamoja e.V.</title>
+<script>
+  /* Sprache vor dem ersten Zeichnen setzen, damit nichts in der falschen Sprache aufblitzt */
+  (function(){var s=null;try{s=localStorage.getItem('npv_lang');}catch(e){}
+    if(s!=='de'&&s!=='en'){var p=navigator.languages||[navigator.language||''];s=Array.prototype.some.call(p,function(x){return /^de\b/i.test(x);})?'de':'en';}
+    document.documentElement.setAttribute('data-active',s);document.documentElement.setAttribute('lang',s);})();
+</script>
 <meta name="description" content="Nawiri Pamoja e.V. – Schulbildung für Kinder in Siaya County, Kenia, gemeinsam mit der Community-Organisation Dongruok Kanyakla.">
+<link rel="canonical" href="https://nawiri-pamoja.org/">
+<!-- Icons -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#FBF8F1">
+<!-- Linkvorschau (WhatsApp, Bluesky, Signal, Messenger, …) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nawiri Pamoja e.V.">
+<meta property="og:url" content="https://nawiri-pamoja.org/">
+<meta property="og:title" content="Nawiri Pamoja – Zusammen wachsen. Thriving together.">
+<meta property="og:description" content="Gemeinsam mit der Community in Siaya, Kenia: Schule ohne Paywall, Spiel und Sport, eine starke Gemeinschaft. · Together with the community in Siaya, Kenya: school without a paywall, play and sport, a strong community.">
+<meta property="og:image" content="https://nawiri-pamoja.org/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo von Nawiri Pamoja über einem Weg in Siaya, auf dem Kinder und Erwachsene laufen">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/source-sans-3-latin-var.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/baloo-2-latin-var.woff" as="font" type="font/woff" crossorigin>
 <style>
@@ -742,9 +767,14 @@
     if(persist){ try{ localStorage.setItem('npv_lang', l); }catch(e){} }
   }
   buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
-  let saved = 'de';
-  try{ saved = localStorage.getItem('npv_lang') || 'de'; }catch(e){}
-  setLang(saved);
+  // Startsprache: gespeicherte Wahl, sonst Browsersprache (Deutsch nur, wenn der Browser Deutsch bevorzugt)
+  function browserLang(){
+    const prefs = navigator.languages || [navigator.language || ''];
+    return prefs.some(p => /^de\b/i.test(p)) ? 'de' : 'en';
+  }
+  let saved = null;
+  try{ saved = localStorage.getItem('npv_lang'); }catch(e){}
+  setLang(saved === 'de' || saved === 'en' ? saved : browserLang());
 </script>
 
 <script>

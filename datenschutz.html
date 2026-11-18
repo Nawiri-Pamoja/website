@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datenschutz – Nawiri Pamoja e.V.</title>
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('npv_lang');}catch(e){}
+    if(s!=='de'&&s!=='en'){var p=navigator.languages||[navigator.language||''];s=Array.prototype.some.call(p,function(x){return /^de\b/i.test(x);})?'de':'en';}
+    document.documentElement.setAttribute('data-active',s);document.documentElement.setAttribute('lang',s);})();
+</script>
 <meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#FBF8F1">
 <link rel="preload" href="assets/fonts/source-sans-3-latin-var.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/baloo-2-latin-var.woff" as="font" type="font/woff" crossorigin>
 <style>
@@ -148,7 +157,10 @@
       if(persist){try{localStorage.setItem('npv_lang',l);}catch(e){}}
     }
     buttons.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.setLang,true);});});
-    var saved='de'; try{saved=localStorage.getItem('npv_lang')||'de';}catch(e){}
+    // Startsprache: gespeicherte Wahl, sonst Browsersprache (wie auf der Startseite)
+    var prefs=navigator.languages||[navigator.language||''], saved=null;
+    try{saved=localStorage.getItem('npv_lang');}catch(e){}
+    if(saved!=='de'&&saved!=='en'){saved=Array.prototype.some.call(prefs,function(p){return /^de\b/i.test(p);})?'de':'en';}
     setLang(saved);
   })();
 </script>
