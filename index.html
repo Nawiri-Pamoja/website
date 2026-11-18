@@ -115,6 +115,8 @@
   .menu-btn svg{width:26px;height:26px;}
 
   /* ---------- Splash ---------- */
+  /* Etwas niedriger als der Bildschirm, damit unten der Inhalt hervorschaut */
+  :root{--splash-h:clamp(520px,84vh,1100px);}
   html{scroll-padding-top:84px;}
   .splash-bg{
     position:fixed;inset:0;z-index:0;
@@ -126,15 +128,18 @@
     background-size:auto,cover,auto;
     background-position:0 0,62% 0,0 0;
   }
+  /* Querformat: Foto so weit nach oben schieben, dass die Füße des Mädchens, das sich
+     umdreht (bei 80 % der Bildhöhe), knapp über der Unterkante des Splash stehen.
+     Das Foto ist hier 100vw breit, also 75,3vw hoch; 80 % davon = 60,24vw. */
   @media (min-aspect-ratio:4/3){
     .splash-bg{
       background-size:auto,100vw auto,auto;
-      background-position:0 0,50% calc(-1 * min(max(0px, 47.5vw - 580px), 75.28vw - 100vh)),0 0;
+      background-position:0 0,50% min(0px, calc(var(--splash-h) - 3vh - 60.24vw)),0 0;
     }
   }
   .splash{
     position:relative;z-index:1;
-    height:clamp(560px,94vh,920px);
+    height:var(--splash-h);
     padding-top:112px;
     display:flex;align-items:flex-start;justify-content:center;
   }
@@ -145,6 +150,11 @@
     box-shadow:0 10px 40px rgba(20,40,30,.18);
   }
   .splash-logo{width:min(72vw,720px);height:auto;display:block;}
+  /* Niedrige Querformat-Bildschirme (z. B. Laptops 1280x720, 1366x768): Logo kleiner,
+     damit das Kärtchen nicht über dem Mädchen liegt */
+  @media (min-aspect-ratio:4/3) and (max-height:820px){
+    .splash-logo{width:min(72vw,720px,64vh);}
+  }
   .page{position:relative;z-index:1;background:var(--paper);}
   footer{position:relative;z-index:1;background:var(--paper-dim);}
 
