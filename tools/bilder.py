@@ -10,7 +10,7 @@ Für jedes Foto in assets/gallery/, das noch keine Vorschau hat:
 Teamfotos in assets/team/ werden auf höchstens 800 px verkleinert.
 
 Bereits bearbeitete Fotos bleiben unverändert, das Skript kann also
-beliebig oft laufen. Benötigt Pillow:  pip install Pillow
+beliebig oft laufen. Benötigt Pillow:  pacman -S python-pillow  (Arch)  bzw.  pip install Pillow
 """
 import os
 import sys
@@ -18,7 +18,7 @@ import sys
 try:
     from PIL import Image, ImageOps
 except ImportError:
-    sys.exit("Pillow fehlt. Bitte installieren:  pip install Pillow")
+    sys.exit("Pillow fehlt. Bitte installieren:  pacman -S python-pillow  (Arch)  bzw.  pip install Pillow")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GALLERY = os.path.join(ROOT, "assets", "gallery")
